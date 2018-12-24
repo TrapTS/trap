@@ -1,0 +1,23 @@
+{
+  "name": "trap",
+  "version": "1.0.0",
+  "description": "Trap is base on koa, running in node.js v8 runtime.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TrapTS/trap.git"
+  },
+  "keywords": [
+    "ts",
+    "trap",
+    "koa"
+  ],
+  "author": "AlfieriChou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TrapTS/trap/issues"
+  },
+  "homepage": "https://github.com/TrapTS/trap#readme"
+}

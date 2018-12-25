@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Trap is base on koa, running in node.js v8 runtime.",
   "scripts": {
+    "dev": "NODE_ENV=development ts-node ./src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +20,23 @@
   "bugs": {
     "url": "https://github.com/TrapTS/trap/issues"
   },
-  "homepage": "https://github.com/TrapTS/trap#readme"
+  "homepage": "https://github.com/TrapTS/trap#readme",
+  "devDependencies": {
+    "@types/node": "^10.12.18",
+    "nodemon": "^1.18.9",
+    "prettier": "^1.15.3",
+    "ts-node": "^7.0.1",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-plugin-prettier": "^2.0.1"
+  },
+  "dependencies": {
+    "dir_filenames": "^1.0.6",
+    "koa": "^2.6.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "lodash": "^4.17.11",
+    "reflect-metadata": "^0.1.12",
+    "typescript": "^3.2.2"
+  }
 }

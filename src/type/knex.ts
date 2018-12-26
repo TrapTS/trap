@@ -1,7 +1,7 @@
 export interface KnexConfig {
   client: string
   connection: Connection
-  pool: Pool
+  pool?: Pool
 }
 
 interface Connection {
@@ -9,6 +9,9 @@ interface Connection {
   user: string
   password: string
   database: string
+  supportBigNumbers: boolean
+  charset: string
+  connectTimeout: number
 }
 
 interface Pool {

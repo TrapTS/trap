@@ -15,6 +15,6 @@ interface Connection {
 }
 
 interface Pool {
-  min: number,
+  min: number
   max: number
 }

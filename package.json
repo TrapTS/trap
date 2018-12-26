@@ -4,7 +4,22 @@
   "description": "Trap is base on koa, running in node.js v8 runtime.",
   "scripts": {
     "dev": "NODE_ENV=development ts-node ./src/server.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "format": "prettier --write \"**/*.ts\""
+  },
+  "tslintConfig": {
+    "extends": [
+      "prettier"
+    ],
+    "plugins": [
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": "error"
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,1 @@
+import { KnexConfig } from '../type/knex'

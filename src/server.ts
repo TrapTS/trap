@@ -3,6 +3,7 @@ import * as Koa from 'koa'
 import * as bodyParser from 'koa-bodyparser'
 import * as logger from 'koa-logger'
 import { config } from './config'
+import { loadControllers } from './app/decorator/router';
 
 const app: any = new Koa()
 
@@ -10,6 +11,10 @@ if (process.env.NODE_ENV === 'development') {
   app.use(logger())
 }
 app.use(bodyParser())
+
+const router = loadControllers()
+app.use(router.routes())
+app.use(router.allowedMethods())
 
 if (!module.parent) {
   app.listen(config['port'], () => {

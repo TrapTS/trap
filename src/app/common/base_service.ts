@@ -12,6 +12,10 @@ const knexConfig: KnexConfig = {
     supportBigNumbers: true,
     charset: 'utf8mb4',
     connectTimeout: 15000
+  },
+  pool: {
+    min: 2,
+    max: 10
   }
 }
 

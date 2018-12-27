@@ -46,6 +46,7 @@
     "tslint-plugin-prettier": "^2.0.1"
   },
   "dependencies": {
+    "@types/koa": "^2.0.47",
     "class-transformer": "^0.2.0",
     "dir_filenames": "^1.0.6",
     "knex": "^0.16.3",

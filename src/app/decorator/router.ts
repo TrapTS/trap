@@ -33,34 +33,22 @@ export const route: Function = (path: string, method: Method) => {
     }
     switch (method) {
       case Method.HEAD:
-        target.router.head(
-          path,
-          descriptor.value
-        )
+        target.router.head(path, descriptor.value)
         break
       case Method.OPTIONS:
-        target.router.options(
-          path,
-          descriptor.value
-        )
+        target.router.options(path, descriptor.value)
         break
       case Method.GET:
         target.router.get(path, descriptor.value)
         break
       case Method.PATCH:
-        target.router.patch(
-          path,
-          descriptor.value
-        )
+        target.router.patch(path, descriptor.value)
         break
       case Method.PUT:
         target.router.put(path, descriptor.value)
         break
       case Method.POST:
-        target.router.post(
-          path,
-          descriptor.value
-        )
+        target.router.post(path, descriptor.value)
         break
       case Method.DELETE:
         target.router.del(path, descriptor.value)

@@ -3,7 +3,7 @@ import * as Koa from 'koa'
 import * as bodyParser from 'koa-bodyparser'
 import * as logger from 'koa-logger'
 import { config } from './config'
-import { loadControllers } from './app/decorator/router';
+import { loadControllers } from './app/decorator/router'
 
 const app: any = new Koa()
 

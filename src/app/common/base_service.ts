@@ -19,7 +19,7 @@ const knexConfig: KnexConfig = {
   }
 }
 
-class BaseService {
+export class BaseService {
   knex: any
   constructor() {
     this.knex = knex(knexConfig)

@@ -17,7 +17,7 @@ export enum Method {
 }
 
 export const prefix: Function = (path: string = '') => {
-  return (target: any, key?: string | symbol, descriptor?: any): void => {
+  return (target: any, _key?: string | symbol, _descriptor?: any): void => {
     if (!target.prototype.router) {
       target.prototype.router = new Router()
     }
@@ -27,7 +27,7 @@ export const prefix: Function = (path: string = '') => {
 }
 
 export const route: Function = (path: string, method: Method) => {
-  return (target: any, key?: string | symbol, descriptor?: any): void => {
+  return (target: any, _key?: string | symbol, descriptor?: any): void => {
     if (!target.router) {
       target.router = new Router()
     }

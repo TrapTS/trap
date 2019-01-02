@@ -1,5 +1,3 @@
-import { Option } from "cookies";
-
 export interface Migration {
   opt: Operation
   table?: string

@@ -1,4 +1,6 @@
-export const config: Object = {
+import { Config } from './interfaces'
+
+export const config: Config = {
   mysql: {
     host: '106.15.230.136',
     user: 'lvyang',

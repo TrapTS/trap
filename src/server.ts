@@ -7,7 +7,7 @@ import { loadControllers } from './app/decorator/router'
 
 const app: any = new Koa()
 
-if (process.env.NODE_ENV === 'development') {
+if (config.env === 'development') {
   app.use(logger())
 }
 app.use(bodyParser())
@@ -17,8 +17,8 @@ app.use(router.routes())
 app.use(router.allowedMethods())
 
 if (!module.parent) {
-  app.listen(config['port'], () => {
-    console.log(`Server ready at http://localhost:${config['port']}`)
+  app.listen(config.port, () => {
+    console.log(`Server ready at http://localhost:${config.port}`)
   })
 }
 

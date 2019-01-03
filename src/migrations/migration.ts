@@ -10,7 +10,7 @@ fs.readdirSync(`${appRoot}/migrations/operation`).map(file => {
   let migrations = require(path.join(`${appRoot}/migrations/operation`, file))(db)
   const funcArray: Function[] = []
   migrations.map(migration => {
-    if (_.isPlainObject && migration.opt === 'create') {
+    if (_.isPlainObject(migration) && migration.opt === 'create') {
       return funcArray.push(async () => {
         const exists = await db.schema.hasTable(migration.table)
         if (!exists) {

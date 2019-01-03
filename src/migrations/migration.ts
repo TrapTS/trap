@@ -7,7 +7,9 @@ import * as path from 'path'
 
 const appRoot = config.appRoot
 fs.readdirSync(`${appRoot}/migrations/operation`).map(file => {
-  let migrations = require(path.join(`${appRoot}/migrations/operation`, file))(db)
+  let migrations = require(path.join(`${appRoot}/migrations/operation`, file))(
+    db
+  )
   const funcArray: Function[] = []
   migrations.map(migration => {
     if (_.isPlainObject(migration) && migration.opt === 'create') {
@@ -20,12 +22,26 @@ fs.readdirSync(`${appRoot}/migrations/operation`).map(file => {
               if (i === 'id') {
                 t[columns[i].type]()
               } else {
-                if (columns[i].type === 'float' || columns[i] === 'double' || columns[i].type === 'decimal') {
-                  t[columns[i].type](i, columns[i].precision, columns[i].scale).defaultTo(columns[i].default).comment(columns[i].comment)
-                } else if (columns[i].type === 'string' || columns[i].type === 'varchar' || columns[i].type === 'char') {
-                  t[columns[i].type](i, columns[i].length).defaultTo(columns[i].default).comment(columns[i].comment)
+                if (
+                  columns[i].type === 'float' ||
+                  columns[i] === 'double' ||
+                  columns[i].type === 'decimal'
+                ) {
+                  t[columns[i].type](i, columns[i].precision, columns[i].scale)
+                    .defaultTo(columns[i].default)
+                    .comment(columns[i].comment)
+                } else if (
+                  columns[i].type === 'string' ||
+                  columns[i].type === 'varchar' ||
+                  columns[i].type === 'char'
+                ) {
+                  t[columns[i].type](i, columns[i].length)
+                    .defaultTo(columns[i].default)
+                    .comment(columns[i].comment)
                 } else {
-                  t[columns[i].type](i).defaultTo(columns[i].default).comment(columns[i].comment)
+                  t[columns[i].type](i)
+                    .defaultTo(columns[i].default)
+                    .comment(columns[i].comment)
                 }
               }
             }

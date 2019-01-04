@@ -30,7 +30,9 @@ const knexConfig: KnexConfig = {
 
 export class BaseService {
   knex: any
+  config: Object
   constructor() {
     this.knex = knex(knexConfig)
+    this.config = config
   }
 }

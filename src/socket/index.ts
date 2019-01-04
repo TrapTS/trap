@@ -28,11 +28,21 @@ class Server {
           for (let i in socketObj) {
             if (!_.isPlainObject(socketObj[i]))
               throw new Error('Socket configure mast be Object!!!')
-            if (!socketObj[i].channel || !socketObj[i].socket)
-              throw new Error('Socket module mast have channel and socket!!!')
-            socket.on(socketObj[i].channel, socketObj[i].socket)
+            if (
+              !socketObj[i].type ||
+              !socketObj[i].channel ||
+              !socketObj[i].options
+            )
+              throw new Error(
+                'Socket module mast have type, channel and options!!!'
+              )
+            if (socketObj[i].type === 'ON')
+              socket.on(socketObj[i].channel, socketObj[i].options)
+            if (socketObj[i].type === 'EMIT')
+              socket.emit(socketObj[i].channel, socketObj[i].options)
           }
         })
+
         socket.on('disconnect', () => {
           console.log('id: ' + socket.id + '   disconnected!!')
         })
@@ -45,7 +55,13 @@ export const SocketServer: Function = httpServer => {
   return new Server(httpServer)
 }
 
+export enum TypeList {
+  emit = 'EMIT',
+  on = 'ON'
+}
+
 export interface Socket {
+  type: TypeList
   channel: string
-  socket: Function
+  options: Function | Object
 }

@@ -3,6 +3,7 @@ export interface Config {
   appRoot?: string
   port: number
   mysql: Mysql
+  amqp_url?: string
 }
 
 interface Mysql {

@@ -7,5 +7,6 @@ export const config: Config = {
     password: 'zhazhayang',
     database: 'test'
   },
-  port: 4000
+  port: 4000,
+  amqp_url: 'amqp://47.74.234.5:5672'
 }

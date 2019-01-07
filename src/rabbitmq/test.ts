@@ -12,7 +12,7 @@ const helloWorld: Function = async () => {
     await channel.sendToQueue(queue, new Buffer('Hello World'), {
       persistent: true
     })
-    connection.on('error', (err) => {
+    connection.on('error', err => {
       console.log('------>', err)
       setTimeout(helloWorld(), 1000)
     })

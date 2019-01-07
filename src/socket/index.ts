@@ -19,27 +19,22 @@ class Server {
       (socket): void => {
         console.log('User connected!!   ' + 'id: ' + socket.id)
 
-        const files: string[] = dir(`${config.appRoot}/src/socket`)
-        _.remove(files, n => {
-          return n === `${config.appRoot}/src/socket/index.ts`
-        })
+        const files: string[] = dir(`${config.appRoot}/src/socket/normal`)
         files.map(file => {
           const socketObj = require(file)
           for (let i in socketObj) {
             if (!_.isPlainObject(socketObj[i]))
               throw new Error('Socket configure mast be Object!!!')
-            if (
-              !socketObj[i].type ||
-              !socketObj[i].channel ||
-              !socketObj[i].options
-            )
-              throw new Error(
-                'Socket module mast have type, channel and options!!!'
-              )
-            if (socketObj[i].type === 'ON')
+            if (!socketObj[i].type || !socketObj[i].options)
+              throw new Error('Socket module mast have type and options!!!')
+            if (socketObj[i].type === 'ON' && socketObj[i].channel)
               socket.on(socketObj[i].channel, socketObj[i].options)
-            if (socketObj[i].type === 'EMIT')
+            if (socketObj[i].type === 'EMIT' && socketObj[i].channel)
               socket.emit(socketObj[i].channel, socketObj[i].options)
+            if (socketObj[i].type === 'RAW') {
+              const rawFunc: Function = socketObj[i].options
+              rawFunc(socket)
+            }
           }
         })
 
@@ -57,11 +52,12 @@ export const SocketServer: Function = httpServer => {
 
 export enum TypeList {
   emit = 'EMIT',
-  on = 'ON'
+  on = 'ON',
+  raw = 'RAW'
 }
 
 export interface Socket {
   type: TypeList
-  channel: string
+  channel?: string
   options: Function | Object
 }

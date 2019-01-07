@@ -6,6 +6,8 @@
     "dev": "NODE_ENV=development nodemon --exec 'ts-node --cache-directory .cache' src/server.ts",
     "start": "NODE_ENV=release ts-node ./src/server.ts",
     "ws:dev": "NODE_ENV=development ts-node ./src/wsServer.ts",
+    "rabbit:test_se": "ts-node ./src/rabbitmq/test_se.ts",
+    "rabbit:test_re": "ts-node ./src/rabbitmq/test_re.ts",
     "format": "prettier --write \"**/*.ts\""
   },
   "tslintConfig": {

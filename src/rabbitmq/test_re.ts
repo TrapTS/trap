@@ -2,7 +2,7 @@ const amqp = require('amqplib')
 
 const queue: string = 'Hello'
 
-async function helloWorld() {
+const helloWorld: Function = async () => {
   const connection = await amqp.connect('amqp://47.74.234.5:5672')
   console.info('connect to RabbitMQ success')
   try {
@@ -15,16 +15,16 @@ async function helloWorld() {
 
     connection.on('error', (err) => {
       console.log(err)
-      setTimeout(helloWorld, 10000)
+      setTimeout(helloWorld(), 10000)
     })
 
     connection.on('close', () => {
       console.error('connection to RabbitQM closed!')
-      setTimeout(helloWorld, 10000)
+      setTimeout(helloWorld(), 10000)
     })
   } catch (err) {
     console.error(err)
-    setTimeout(helloWorld, 10000)
+    setTimeout(helloWorld(), 10000)
   }
 }
 

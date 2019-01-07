@@ -12,14 +12,20 @@ const helloWorld: Function = async () => {
     await channel.sendToQueue(queue, Buffer.from('Hello World'), {
       persistent: true
     })
-    connection.on('error', err => {
-      console.log(err)
-      setTimeout(helloWorld(), 1000)
-    })
-    connection.on('close', () => {
-      console.log('RabbitQM closed!!!')
-      setTimeout(helloWorld(), 1000)
-    })
+    connection.on(
+      'error',
+      (err): void => {
+        console.log(err)
+        setTimeout(helloWorld(), 1000)
+      }
+    )
+    connection.on(
+      'close',
+      (): void => {
+        console.log('RabbitQM closed!!!')
+        setTimeout(helloWorld(), 1000)
+      }
+    )
   } catch (err) {
     console.error(err)
     setTimeout(helloWorld(), 1000)

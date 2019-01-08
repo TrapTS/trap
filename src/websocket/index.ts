@@ -35,6 +35,16 @@ class Server {
               const rawFunc: Function = socketObj[i].options
               rawFunc(socket)
             }
+            if (socketObj[i].logger) {
+              console.info(
+                JSON.stringify({
+                  wsEngine: 'ws',
+                  header: JSON.stringify(socket.conn.request.headers),
+                  url: socket.conn.request.url,
+                  method: socket.conn.request.method
+                })
+              )
+            }
           }
         })
 
@@ -59,5 +69,6 @@ export enum TypeList {
 export interface Socket {
   type: TypeList
   channel?: string
+  logger?: boolean
   options: Function | Object
 }

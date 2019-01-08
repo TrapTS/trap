@@ -1,6 +1,6 @@
 import * as http from 'http'
 import * as Koa from 'koa'
-import { SocketServer } from './socket/index'
+import { SocketServer } from './websocket/index'
 
 const app: any = new Koa()
 const server = http.createServer(app.callback())

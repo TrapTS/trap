@@ -8,5 +8,5 @@ export const config: Config = {
     database: 'test'
   },
   port: 4000,
-  amqp_url: 'amqp://47.74.234.5:5672'
+  amqp_url: 'amqp://rabbitmq:rabbitmq@118.24.62.50:5672'
 }

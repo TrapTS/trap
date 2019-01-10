@@ -1,4 +1,4 @@
-import { KnexConfig } from '../typings/knex'
+import { KnexConfig } from '../typings/migrations'
 import * as knex from 'knex'
 import * as path from 'path'
 

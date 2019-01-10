@@ -1,6 +1,6 @@
 import { config } from '../../config'
 import * as knex from 'knex'
-import { KnexConfig } from '../../typings/knex'
+import { KnexConfig } from '../../typings/app/common'
 
 interface Mysql {
   host: string

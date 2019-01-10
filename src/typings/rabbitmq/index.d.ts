@@ -8,4 +8,5 @@ export interface SendRabbitMQ {
 export interface ReceiveRabbitMQ {
   url: string
   chananel: string
+  task: Function
 }

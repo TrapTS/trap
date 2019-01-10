@@ -11,8 +11,8 @@ files.map(file => {
 })
 
 const sendMessage: Function = async (send: SendRabbitMQ) => {
-  const connection = await amqp.connection(send.url)
-  console.info('RabbitMQ connection success!!!')
+  const connection = await amqp.connect(send.url)
+  console.info('connect to RabbitMQ success!!!')
   try {
     const channel: any = await connection.createChannel()
     await channel.assertQueue(send.queue)

@@ -10,21 +10,6 @@
     "rabbit:test_re": "ts-node ./src/rabbitmq/test_re.ts",
     "format": "prettier --write \"**/*.ts\""
   },
-  "tslintConfig": {
-    "extends": [
-      "prettier"
-    ],
-    "plugins": [
-      "prettier"
-    ],
-    "rules": {
-      "prettier/prettier": "error"
-    }
-  },
-  "prettier": {
-    "singleQuote": true,
-    "semi": false
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TrapTS/trap.git"

@@ -6,8 +6,11 @@ import { ReceiveRabbitMQ } from '../typings/rabbitmq'
 const files: string[] = dir(path.resolve(__dirname, './receive'))
 
 files.map(file => {
-  const receive: ReceiveRabbitMQ = require(file)
-  receiveMessage(receive)
+  const receiveModule: Object = require(file)
+  for (let i in receiveModule) {
+    const receive: ReceiveRabbitMQ = receiveModule[i]
+    receiveMessage(receive)
+  }
 })
 
 const receiveMessage: Function = async (receive: ReceiveRabbitMQ) => {

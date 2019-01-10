@@ -6,8 +6,11 @@ import { SendRabbitMQ } from '../typings/rabbitmq'
 const files: string[] = dir(path.resolve(__dirname, './send'))
 
 files.map(file => {
-  const send: SendRabbitMQ = require(file)
-  sendMessage(send)
+  const sendModule: Object = require(file)
+  for(let i in sendModule) {
+    const send: SendRabbitMQ = sendModule[i]
+    sendMessage(send)
+  }
 })
 
 const sendMessage: Function = async (send: SendRabbitMQ) => {

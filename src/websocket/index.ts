@@ -59,16 +59,3 @@ class Server {
 export const SocketServer: Function = httpServer => {
   return new Server(httpServer)
 }
-
-export enum TypeList {
-  emit = 'EMIT',
-  on = 'ON',
-  raw = 'RAW'
-}
-
-export interface Socket {
-  type: TypeList
-  channel?: string
-  logger?: boolean
-  options: Function | Object
-}

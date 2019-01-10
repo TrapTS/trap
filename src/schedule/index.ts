@@ -1,15 +1,9 @@
 import { CronJob } from 'cron'
 import * as dir from 'dir_filenames'
 import * as _ from 'lodash'
+import { CronSchedule } from '../typings/schedule';
 
 const files: string[] = dir(`${process.env.PWD}/src/schedule/cron`)
-
-export interface CronSchedule {
-  cron: string
-  env?: string | string[]
-  timeZone: string
-  task: Function
-}
 
 export const schedule: Function = async () => {
   files.forEach(file => {

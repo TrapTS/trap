@@ -1,7 +1,7 @@
 import { CronJob } from 'cron'
 import * as dir from 'dir_filenames'
 import * as _ from 'lodash'
-import { CronSchedule } from '../typings/schedule';
+import { CronSchedule } from '../typings/schedule'
 
 const files: string[] = dir(`${process.env.PWD}/src/schedule/cron`)
 

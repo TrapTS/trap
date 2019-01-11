@@ -2,6 +2,7 @@ import * as amqp from 'amqplib'
 import * as path from 'path'
 import * as dir from 'dir_filenames'
 import { ReceiveRabbitMQ } from '../typings/rabbitmq'
+import { config } from '../config'
 
 const files: string[] = dir(path.resolve(__dirname, './receive'))
 
@@ -14,7 +15,7 @@ files.map(file => {
 })
 
 const receiveMessage: Function = async (receive: ReceiveRabbitMQ) => {
-  const connection: any = await amqp.connect(receive.url)
+  const connection: any = await amqp.connect(config.amqp_url)
   console.info('connect to RabbitMQ success!!!')
   try {
     const channel: any = await connection.createChannel()

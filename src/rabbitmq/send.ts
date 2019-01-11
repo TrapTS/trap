@@ -1,20 +1,9 @@
 import * as amqp from 'amqplib'
-import * as dir from 'dir_filenames'
-import * as path from 'path'
+import { config } from '../config'
 import { SendRabbitMQ } from '../typings/rabbitmq'
 
-const files: string[] = dir(path.resolve(__dirname, './send'))
-
-files.map(file => {
-  const sendModule: Object = require(file)
-  for(let i in sendModule) {
-    const send: SendRabbitMQ = sendModule[i]
-    sendMessage(send)
-  }
-})
-
 const sendMessage: Function = async (send: SendRabbitMQ) => {
-  const connection = await amqp.connect(send.url)
+  const connection = await amqp.connect(config.amqp_url)
   console.info('connect to RabbitMQ success!!!')
   try {
     const channel: any = await connection.createChannel()

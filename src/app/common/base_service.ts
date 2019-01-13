@@ -1,13 +1,6 @@
 import { config } from '../../config'
 import * as knex from 'knex'
-import { KnexConfig } from '../../typings/app/common'
-
-interface Mysql {
-  host: string
-  user: string
-  password: string
-  database: string
-}
+import { KnexConfig, Mysql } from '../../typings/app/common'
 
 const mysql: Mysql = config.mysql
 

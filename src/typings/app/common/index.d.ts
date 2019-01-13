@@ -18,3 +18,10 @@ interface Pool {
   min: number
   max: number
 }
+
+export interface Mysql {
+  host: string
+  user: string
+  password: string
+  database: string
+}

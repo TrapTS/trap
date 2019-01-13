@@ -2,7 +2,7 @@ import * as amqp from 'amqplib'
 import { config } from '../config'
 import { SendRabbitMQ } from '../typings/rabbitmq'
 
-const sendMessage: Function = async (send: SendRabbitMQ) => {
+export const sendToQueue: Function = async (send: SendRabbitMQ) => {
   const connection = await amqp.connect(config.amqp_url)
   console.info('connect to RabbitMQ success!!!')
   try {
@@ -15,18 +15,18 @@ const sendMessage: Function = async (send: SendRabbitMQ) => {
       'error',
       (err): void => {
         console.log(err)
-        setTimeout(sendMessage(), 1000)
+        setTimeout(sendToQueue(), 1000)
       }
     )
     connection.on(
       'close',
       (): void => {
         console.log('RabbitQM connection closed!!!')
-        setTimeout(sendMessage(), 1000)
+        setTimeout(sendToQueue(), 1000)
       }
     )
   } catch (err) {
     console.log(err)
-    setTimeout(sendMessage(), 1000)
+    setTimeout(sendToQueue(), 1000)
   }
 }

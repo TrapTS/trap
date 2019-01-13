@@ -19,7 +19,7 @@ class Server {
       (socket): void => {
         console.log('User connected!!   ' + 'id: ' + socket.id)
 
-        const files: string[] = dir(`${config.appRoot}/src/socket/normal`)
+        const files: string[] = dir(`${config.appRoot}/src/websocket/normal`)
         files.map(file => {
           const socketObj = require(file)
           for (let i in socketObj) {

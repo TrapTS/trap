@@ -1,9 +1,12 @@
 import * as Koa from 'koa'
-import { Config } from './config'
 import { IService } from './app/service'
+import { IModel } from './app/model'
+import { Config } from './config'
 
-export interface Context extends Koa.Context {
-  sendToQueue?: any
-  config?: Config
-  service?: IService
+declare module 'koa' {
+  interface Context extends Koa.BaseContext {
+    model: IModel
+    service: IService
+    config: Config
+  }
 }

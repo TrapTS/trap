@@ -2,11 +2,13 @@ import * as Koa from 'koa'
 import { IService } from './app/service'
 import { IModel } from './app/model'
 import { Config } from './config'
+import { SendRabbitMQ } from './rabbitmq'
 
 declare module 'koa' {
   interface Context extends Koa.BaseContext {
     model: IModel
     service: IService
     config: Config
+    sendToQueue: SendRabbitMQ
   }
 }

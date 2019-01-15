@@ -4,9 +4,11 @@ import * as bodyParser from 'koa-bodyparser'
 import * as logger from 'koa-logger'
 import { config } from './config'
 import { loadControllers } from './app/decorator/router'
+import { sendToQueue } from './rabbitmq/send'
 
 const app: any = new Koa()
 
+app.context.sendToQueue = sendToQueue
 if (config.env === 'development') {
   app.use(logger())
 }

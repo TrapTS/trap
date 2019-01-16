@@ -8,7 +8,6 @@ import { sendMessage } from './rabbitmq/send'
 
 class Server {
   private app = new Koa()
-  public router = loadControllers()
 
   initMiddleware() {
     this.app.context.sendMessage = sendMessage

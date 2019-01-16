@@ -1,10 +1,10 @@
 import { config } from '../../config'
-import * as knex from 'knex'
-import { KnexConfig, Mysql } from '../../typings/app/common'
+import * as Knex from 'knex'
+import { Mysql } from '../../typings/app/common'
 
 const mysql: Mysql = config.mysql
 
-const knexConfig: KnexConfig = {
+const knexConfig: Knex.Config = {
   client: 'mysql',
   connection: {
     host: mysql.host,
@@ -22,10 +22,10 @@ const knexConfig: KnexConfig = {
 }
 
 export class BaseService {
-  knex: any
+  knex: Knex
   config: Object
   constructor() {
-    this.knex = knex(knexConfig)
+    this.knex = Knex(knexConfig)
     this.config = config
   }
 }

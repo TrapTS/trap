@@ -6,22 +6,29 @@ import { config } from './config'
 import { loadControllers } from './app/decorator/router'
 import { sendMessage } from './rabbitmq/send'
 
-const app: any = new Koa()
+class Server {
+  private app = new Koa()
+  public router = loadControllers()
 
-app.context.sendMessage = sendMessage
-if (config.env === 'development') {
-  app.use(logger())
+  initMiddleware() {
+    this.app.context.sendMessage = sendMessage
+    if (config.env === 'development') {
+      this.app.use(logger())
+    }
+    this.app.use(bodyParser())
+
+    const router = loadControllers()
+    this.app.use(router.routes())
+    this.app.use(router.allowedMethods())
+  }
+
+  async start() {
+    await this.app.listen(config.port, () => {
+      console.info('Application is listening port:', config.port)
+    })
+  }
 }
-app.use(bodyParser())
 
-const router = loadControllers()
-app.use(router.routes())
-app.use(router.allowedMethods())
-
-if (!module.parent) {
-  app.listen(config.port, () => {
-    console.log(`Server ready at http://localhost:${config.port}`)
-  })
-}
-
-export default app
+const server = new Server()
+server.initMiddleware()
+server.start()

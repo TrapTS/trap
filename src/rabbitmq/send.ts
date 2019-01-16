@@ -30,3 +30,12 @@ export const sendToQueue: Function = async (send: SendRabbitMQ) => {
     setTimeout(sendToQueue(), 1000)
   }
 }
+
+export const sendMessage: Function = async (queue: string, message: string) => {
+  const connection = await amqp.connect(config.amqp_url)
+  const channel = await connection.createChannel()
+  await channel.assertQueue(queue)
+  await channel.sendToQueue(queue, Buffer.from(message), {
+    persistent: true
+  })
+}

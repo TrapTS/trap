@@ -14,5 +14,6 @@ declare module 'koa' {
     service: IService
     config: Config
     request: Request
+    sendMessage(queue: string, message: string)
   }
 }

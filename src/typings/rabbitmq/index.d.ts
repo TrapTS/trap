@@ -6,5 +6,5 @@ export interface SendRabbitMQ {
 
 export interface ReceiveRabbitMQ {
   chananel: string
-  task: Function
+  task: (message) => any
 }

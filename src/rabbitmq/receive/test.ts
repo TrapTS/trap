@@ -1,8 +1,8 @@
-import { ReceiveRabbitMQ } from "../../typings/rabbitmq";
+import { ReceiveRabbitMQ } from '../../typings/rabbitmq'
 
 export const test: ReceiveRabbitMQ = {
-    chananel: 'Hello',
-    task: (message) => {
-      console.log(message.content.toString())
-    }
+  chananel: 'Hello',
+  task: message => {
+    console.log(message.content.toString())
+  }
 }

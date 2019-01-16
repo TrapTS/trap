@@ -34,6 +34,7 @@
     "tslint-plugin-prettier": "^2.0.1"
   },
   "dependencies": {
+    "@types/amqplib": "^0.5.9",
     "@types/koa": "^2.0.48",
     "amqplib": "^0.5.3",
     "class-transformer": "^0.2.0",

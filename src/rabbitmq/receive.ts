@@ -3,14 +3,26 @@ import * as path from 'path'
 import * as dir from 'dir_filenames'
 import { ReceiveRabbitMQ } from '../typings/rabbitmq'
 import { config } from '../config'
+import { Channel, Connection, Options } from 'amqplib'
+
+const connect: Options.Connect = {
+  hostname: '118.24.62.50',
+  port: 5672,
+  username: 'rabbitmq',
+  password: 'rabbitmq'
+}
+
+const url: string | Options.Connect = config.amqp_url
+  ? config.amqp_url
+  : connect
 
 const files: string[] = dir(path.resolve(__dirname, './receive'))
 
 const receiveMessage: Function = async (receive: ReceiveRabbitMQ) => {
-  const connection: any = await amqp.connect(config.amqp_url)
+  const connection: Connection = await amqp.connect(url)
   console.info('connect to RabbitMQ success!!!')
   try {
-    const channel: any = await connection.createChannel()
+    const channel: Channel = await connection.createChannel()
     await channel.assertQueue(receive.chananel)
     await channel.consume(receive.chananel, async message => {
       const operateFunc: Function = receive.task

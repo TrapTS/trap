@@ -20,7 +20,7 @@ export const sendToQueue: Function = async (send: SendRabbitMQ) => {
   try {
     const channel: Channel = await connection.createChannel()
     await channel.assertQueue(send.queue)
-    await channel.sendToQueue(send.queue, send.data)
+    await channel.sendToQueue(send.queue, send.data, send.options)
     connection.on(
       'error',
       (err): void => {
@@ -45,7 +45,8 @@ export const sendMessage: Function = async (queue: string, message: string) => {
   const connection = await amqp.connect(url)
   const channel = await connection.createChannel()
   await channel.assertQueue(queue)
-  await channel.sendToQueue(queue, Buffer.from(message), {
+  const options: Options.Publish = {
     persistent: true
-  })
+  }
+  await channel.sendToQueue(queue, Buffer.from(message), options)
 }

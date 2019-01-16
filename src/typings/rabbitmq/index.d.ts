@@ -1,7 +1,9 @@
+import { Options } from 'amqplib'
+
 export interface SendRabbitMQ {
   queue: string
   data: Buffer
-  persistent?: Boolean
+  options: Options.Publish
 }
 
 export interface ReceiveRabbitMQ {

@@ -1,9 +1,10 @@
 import { CronJob } from 'cron'
 import * as dir from 'dir_filenames'
 import * as _ from 'lodash'
+import * as path from 'path'
 import { CronSchedule } from '../typings/schedule'
 
-const files: string[] = dir(`${process.env.PWD}/src/schedule/cron`)
+const files: string[] = dir(path.resolve(__dirname, 'cronjob'))
 
 export const schedule: Function = async () => {
   files.forEach(file => {
@@ -23,3 +24,41 @@ export const schedule: Function = async () => {
     }
   })
 }
+
+const classfiles: string[] = dir(path.resolve(__dirname, 'classcronjob'))
+
+export const classSchedule: Function = async () => {
+  classfiles.map(async file => {
+    const classes = require(file)
+    for (let i in classes) {
+      const info = classes[i].prototype.schedule()
+      if (info.disable === true) {
+        continue
+      }
+      if (info.env) {
+        const env: string | string[] = info.env
+        if (env.includes(process.env.NODE_ENV as string)) {
+          const job = new CronJob(
+            info.cron,
+            classes[i].prototype.subscribe,
+            null,
+            true,
+            info.timeZone
+          )
+          job.start()
+        }
+      } else {
+        const job = new CronJob(
+          info.cron,
+          classes[i].prototype.subscribe,
+          null,
+          true,
+          info.timeZone
+        )
+        job.start()
+      }
+    }
+  })
+}
+
+export class Subscription {}

@@ -42,8 +42,8 @@ export const sendToQueue: Function = async (send: SendRabbitMQ) => {
 }
 
 export const sendMessage: Function = async (queue: string, message: string) => {
-  const connection = await amqp.connect(url)
-  const channel = await connection.createChannel()
+  const connection: Connection = await amqp.connect(url)
+  const channel: Channel = await connection.createChannel()
   await channel.assertQueue(queue)
   const options: Options.Publish = {
     persistent: true

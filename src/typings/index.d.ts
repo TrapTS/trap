@@ -13,7 +13,6 @@ declare module 'koa' {
     model: IModel
     service: IService
     config: Config
-    sendToQueue(queue: string, data: Buffer, persistent?: boolean): void
     request: Request
   }
 }

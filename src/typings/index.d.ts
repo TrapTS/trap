@@ -13,7 +13,7 @@ declare module 'koa' {
     model: IModel
     service: IService
     config: Config
-    sendToQueue: SendRabbitMQ
+    sendToQueue(queue: string, data: Buffer, persistent?: boolean): void
     request: Request
   }
 }

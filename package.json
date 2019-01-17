@@ -26,6 +26,9 @@
   },
   "homepage": "https://github.com/TrapTS/trap#readme",
   "devDependencies": {
+    "@types/amqplib": "^0.5.9",
+    "@types/knex": "^0.15.1",
+    "@types/koa": "^2.0.48",
     "@types/node": "^10.12.18",
     "nodemon": "^1.18.9",
     "prettier": "^1.15.3",
@@ -34,9 +37,6 @@
     "tslint-plugin-prettier": "^2.0.1"
   },
   "dependencies": {
-    "@types/amqplib": "^0.5.9",
-    "@types/knex": "^0.15.1",
-    "@types/koa": "^2.0.48",
     "amqplib": "^0.5.3",
     "class-transformer": "^0.2.0",
     "cron": "^1.6.0",

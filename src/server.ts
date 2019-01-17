@@ -5,8 +5,9 @@ import * as logger from 'koa-logger'
 import { config } from './config'
 import { loadControllers } from './app/decorator/router'
 import { sendMessage } from './rabbitmq/send'
+import { InitServer } from './typings'
 
-class Server {
+class Server implements InitServer {
   private app = new Koa()
 
   initMiddleware() {

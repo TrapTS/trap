@@ -17,3 +17,8 @@ declare module 'koa' {
     sendMessage(queue: string, message: string)
   }
 }
+
+export class InitServer {
+  public initMiddleware(): void
+  public start(): void
+}

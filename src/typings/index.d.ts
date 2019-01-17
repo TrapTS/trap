@@ -22,3 +22,7 @@ export class InitServer {
   public initMiddleware(): void
   public start(): void
 }
+
+export class InitWSServer {
+  public init(): void
+}

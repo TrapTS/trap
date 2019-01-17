@@ -14,11 +14,23 @@ export const schedule: Function = async () => {
       if (SC.env) {
         const env: string | string[] = SC.env
         if (env.includes(process.env.NODE_ENV as string)) {
-          const job = new CronJob(SC.cron, SC.task, null, true, SC.timeZone)
+          const job = new CronJob(
+            SC.cron,
+            SC.task,
+            (): void => {},
+            true,
+            SC.timeZone
+          )
           job.start()
         }
       } else {
-        const job = new CronJob(SC.cron, SC.task, null, true, SC.timeZone)
+        const job = new CronJob(
+          SC.cron,
+          SC.task,
+          (): void => {},
+          true,
+          SC.timeZone
+        )
         job.start()
       }
     }
@@ -38,20 +50,20 @@ export const classSchedule: Function = async () => {
       if (info.env) {
         const env: string | string[] = info.env
         if (env.includes(process.env.NODE_ENV as string)) {
-          const job = new CronJob(
+          const job: CronJob = new CronJob(
             info.cron,
             classes[i].prototype.subscribe,
-            null,
+            (): void => {},
             true,
             info.timeZone
           )
           job.start()
         }
       } else {
-        const job = new CronJob(
+        const job: CronJob = new CronJob(
           info.cron,
           classes[i].prototype.subscribe,
-          null,
+          (): void => {},
           true,
           info.timeZone
         )

@@ -1,6 +1,5 @@
 import { CronJob } from 'cron'
 import * as dir from 'dir_filenames'
-import * as _ from 'lodash'
 import * as path from 'path'
 import { CronSchedule } from '../typings/schedule'
 

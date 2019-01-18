@@ -2,11 +2,11 @@ import { CronJob } from 'cron'
 import * as dir from 'dir_filenames'
 import * as _ from 'lodash'
 import * as path from 'path'
-import { CronSchedule } from '../typings/schedule'
+import { CronSchedule, Schedule, ClassSchedule, EntitySubcription, EntitySchedule } from '../typings/schedule'
 
 const files: string[] = dir(path.resolve(__dirname, 'cronjob'))
 
-export const schedule: Function = async () => {
+export const schedule: Schedule = async () => {
   files.forEach(file => {
     const moduleObj = require(file)
     for (let info in moduleObj) {
@@ -14,7 +14,7 @@ export const schedule: Function = async () => {
       if (SC.env) {
         const env: string | string[] = SC.env
         if (env.includes(process.env.NODE_ENV as string)) {
-          const job = new CronJob(
+          const job: CronJob = new CronJob(
             SC.cron,
             SC.task,
             (): void => {},
@@ -24,7 +24,7 @@ export const schedule: Function = async () => {
           job.start()
         }
       } else {
-        const job = new CronJob(
+        const job: CronJob = new CronJob(
           SC.cron,
           SC.task,
           (): void => {},
@@ -39,11 +39,15 @@ export const schedule: Function = async () => {
 
 const classfiles: string[] = dir(path.resolve(__dirname, 'classcronjob'))
 
-export const classSchedule: Function = async () => {
+export const classSchedule: ClassSchedule = async () => {
   classfiles.map(async file => {
     const classes = require(file)
     for (let i in classes) {
-      const info = classes[i].prototype.schedule()
+
+      // TODO: no check schedule class type
+      const schedule: EntitySubcription = classes[i]
+      console.log('----->', schedule)
+      const info: EntitySchedule = classes[i].schedule()
       if (info.disable === true) {
         continue
       }

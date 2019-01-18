@@ -6,7 +6,7 @@ import { config } from './config'
 import { loadControllers } from './app/decorator/router'
 import { sendMessage } from './rabbitmq/send'
 import { InitServer } from './typings'
-import { classSchedule } from './schedule';
+import { classSchedule } from './schedule'
 
 class Server implements InitServer {
   private app = new Koa()

@@ -2,7 +2,13 @@ import { CronJob } from 'cron'
 import * as dir from 'dir_filenames'
 import * as _ from 'lodash'
 import * as path from 'path'
-import { CronSchedule, Schedule, ClassSchedule, EntitySubcription, EntitySchedule } from '../typings/schedule'
+import {
+  CronSchedule,
+  Schedule,
+  ClassSchedule,
+  EntitySubcription,
+  EntitySchedule
+} from '../typings/schedule'
 
 const files: string[] = dir(path.resolve(__dirname, 'cronjob'))
 
@@ -43,7 +49,6 @@ export const classSchedule: ClassSchedule = async () => {
   classfiles.map(async file => {
     const classes = require(file)
     for (let i in classes) {
-
       // TODO: no check schedule class type
       const schedule: EntitySubcription = classes[i]
       console.log('----->', schedule)

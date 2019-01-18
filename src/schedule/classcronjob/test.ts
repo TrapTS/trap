@@ -1,4 +1,4 @@
-import { EntitySubcription } from "../../typings/schedule";
+import { EntitySubcription } from '../../typings/schedule'
 
 export class TestSchedule implements EntitySubcription {
   public static schedule() {

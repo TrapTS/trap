@@ -1,5 +1,6 @@
 import * as Router from 'koa-router'
 import * as dir from 'dir_filenames'
+import { Prefix, Route } from '../../typings/app/decorator'
 
 const router = new Router({
   prefix: '/v1'
@@ -16,7 +17,7 @@ export enum Method {
   ALL
 }
 
-export const prefix: Function = (path: string = '') => {
+export const prefix: Prefix = (path: string = '') => {
   return (target: any, _key?: string | symbol, _descriptor?: any): void => {
     if (!target.prototype.router) {
       target.prototype.router = new Router()
@@ -26,7 +27,7 @@ export const prefix: Function = (path: string = '') => {
   }
 }
 
-export const route: Function = (path: string, method: Method) => {
+export const route: Route = (path: string, method: Method) => {
   return (target: any, _key?: string | symbol, descriptor?: any): void => {
     if (!target.router) {
       target.router = new Router()

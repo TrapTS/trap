@@ -4,7 +4,7 @@ import knex from '../../database'
 import { Config } from '../../typings/config'
 import { ApiErrorException } from './exceptions'
 import { EntityService } from '../../typings/app/common'
-export abstract class BaseService implements EntityService{
+export abstract class BaseService implements EntityService {
   knex: Knex
   config: Config
   constructor() {

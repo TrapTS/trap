@@ -21,3 +21,15 @@ export class BaseCache {
   public flush(): Promise<void>
   public close(): Promise<void>
 }
+
+export interface Cache{
+  get(key: string): Promise<string | undefined>
+  set(key: string, value: string): Promise<boolean>
+  mget(keys: string[]): Promise<Object>
+  del(key: string | string[]): Promise<void>
+  delStartWith(startWithStr: string): Promise<null | void>
+  keys(): Promise<string[]>
+  getStats(): Promise<CacheStatus>
+  flush(): Promise<void>
+  close(): Promise<void>
+}

@@ -13,7 +13,7 @@ import {
 const files: string[] = dir(path.resolve(__dirname, 'cronjob'))
 
 export const schedule: Schedule = async () => {
-  files.forEach(file => {
+  for await (let file of files) {
     const moduleObj = require(file)
     for (let info in moduleObj) {
       const SC: CronSchedule = moduleObj[info]
@@ -40,13 +40,13 @@ export const schedule: Schedule = async () => {
         job.start()
       }
     }
-  })
+  }
 }
 
 const classfiles: string[] = dir(path.resolve(__dirname, 'classcronjob'))
 
 export const classSchedule: ClassSchedule = async () => {
-  classfiles.map(async file => {
+  for await (let file of classfiles) {
     const classes = require(file)
     for (let i in classes) {
       // TODO: no check schedule class type
@@ -79,7 +79,7 @@ export const classSchedule: ClassSchedule = async () => {
         job.start()
       }
     }
-  })
+  }
 }
 
 export class Subscription {}

@@ -50,6 +50,7 @@
     "koa-logger": "^3.2.0",
     "koa-router": "^7.4.0",
     "lodash": "^4.17.11",
+    "node-cache": "^4.2.0",
     "reflect-metadata": "^0.1.12",
     "socket.io": "^2.2.0",
     "typescript": "^3.2.2"

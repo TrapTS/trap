@@ -7,7 +7,7 @@ export class Cache implements BaseCache {
     this.cache = new NodeCache(options)
   }
 
-  public async get(key: string): Promise<string|undefined> {
+  public async get(key: string): Promise<string | undefined> {
     return await this.cache.get(key)
   }
 
@@ -19,7 +19,7 @@ export class Cache implements BaseCache {
     return await this.cache.set(key, value)
   }
 
-  public async del(key: string|string[]): Promise<void> {
+  public async del(key: string | string[]): Promise<void> {
     await this.cache.del(key)
   }
 

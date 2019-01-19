@@ -1,6 +1,7 @@
 import * as NodeCache from 'node-cache'
 import { CacheStatus, BaseCache } from '../typings'
 
+// memory cache
 export class Cache implements BaseCache {
   public cache: NodeCache
   constructor(options: NodeCache.Options) {

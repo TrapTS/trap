@@ -1,6 +1,6 @@
 import * as Router from 'koa-router'
 import * as dir from 'dir_filenames'
-import { Prefix, Route } from '../../typings/app/decorator'
+import { Prefix, Route } from '../../typings'
 
 const router = new Router({
   prefix: '/v1'

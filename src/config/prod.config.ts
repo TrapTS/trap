@@ -1,4 +1,4 @@
-import { Config } from '../typings/config'
+import { Config } from '../typings'
 
 export const config: Config = {
   mysql: {

@@ -1,3 +1,3 @@
-import { Helper } from '../typings/extends'
+import { Helper } from '../typings'
 
 export const helper: Helper = {}

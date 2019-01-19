@@ -1,6 +1,6 @@
 import * as amqp from 'amqplib'
 import { config } from '../config'
-import { SendMessageFunc } from '../typings/rabbitmq'
+import { SendMessageFunc } from '../typings'
 import { Channel, Connection, Options } from 'amqplib'
 
 const connect: Options.Connect = {

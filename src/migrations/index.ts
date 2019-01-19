@@ -1,5 +1,5 @@
 import * as path from 'path'
-import { Config } from '../typings/config'
+import { Config } from '../typings'
 import * as Knex from 'knex'
 
 let env: string = process.argv[2]

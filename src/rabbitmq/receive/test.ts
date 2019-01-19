@@ -1,4 +1,4 @@
-import { ReceiveRabbitMQ } from '../../typings/rabbitmq'
+import { ReceiveRabbitMQ } from '../../typings'
 
 export const test: ReceiveRabbitMQ = {
   chananel: 'Hello',

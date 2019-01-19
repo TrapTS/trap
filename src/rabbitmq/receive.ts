@@ -1,7 +1,7 @@
 import * as amqp from 'amqplib'
 import * as path from 'path'
 import * as dir from 'dir_filenames'
-import { ReceiveRabbitMQ } from '../typings/rabbitmq'
+import { ReceiveRabbitMQ } from '../typings'
 import { config } from '../config'
 import { Channel, Connection, Options } from 'amqplib'
 

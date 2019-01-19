@@ -1,12 +1,12 @@
 import * as NodeCache from 'node-cache'
+import { BaseCache } from '../typings'
 
-export class Cache {
-
+export class Cache implements BaseCache {
   public cache: NodeCache
   constructor(options: NodeCache.Options) {
     this.cache = new NodeCache(options)
   }
-  
+
   public async get(key: string): Promise<string> {
     const value: string | undefined = await this.cache.get(key)
     if (value) return value
@@ -22,7 +22,7 @@ export class Cache {
   }
 
   // TODO: redis can get keys by like search
-  public async delStartWith(startWithStr: string = ''): Promise<null|void> {
+  public async delStartWith(startWithStr: string = ''): Promise<null | void> {
     if (!startWithStr) return
     const keys: string[] = await this.cache.keys()
     for await (let key of keys) {

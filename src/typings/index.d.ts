@@ -25,7 +25,7 @@ import { Helper } from './extends'
 import { Mysql } from './database'
 import { EntityService } from './app/common'
 import { Prefix, Route } from './app/decorator'
-import { BaseCache } from './cache'
+import { CacheStatus, BaseCache } from './cache'
 
 declare module 'koa' {
   interface Request extends Koa.BaseRequest {
@@ -76,5 +76,6 @@ export {
   Route,
   IModel,
   IService,
+  CacheStatus,
   BaseCache
 }

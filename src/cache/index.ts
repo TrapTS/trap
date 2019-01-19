@@ -1,5 +1,5 @@
 import * as NodeCache from 'node-cache'
-import { BaseCache } from '../typings'
+import { CacheStatus, BaseCache } from '../typings'
 
 export class Cache implements BaseCache {
   public cache: NodeCache
@@ -7,17 +7,19 @@ export class Cache implements BaseCache {
     this.cache = new NodeCache(options)
   }
 
-  public async get(key: string): Promise<string> {
-    const value: string | undefined = await this.cache.get(key)
-    if (value) return value
-    return ''
+  public async get(key: string): Promise<string|undefined> {
+    return await this.cache.get(key)
+  }
+
+  public async mget(keys: string[]): Promise<Object> {
+    return await this.cache.mget(keys)
   }
 
   public async set(key: string, value: string): Promise<boolean> {
     return await this.cache.set(key, value)
   }
 
-  public async del(key: string): Promise<void> {
+  public async del(key: string|string[]): Promise<void> {
     await this.cache.del(key)
   }
 
@@ -34,7 +36,15 @@ export class Cache implements BaseCache {
     return this.cache.keys()
   }
 
+  public async getStats(): Promise<CacheStatus> {
+    return await this.cache.getStats()
+  }
+
   public async flush(): Promise<void> {
     await this.cache.flushAll()
+  }
+
+  public async close(): Promise<void> {
+    await this.cache.close()
   }
 }

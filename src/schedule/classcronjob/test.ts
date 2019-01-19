@@ -1,7 +1,7 @@
-import { EntitySubcription } from '../../typings/schedule'
+import { EntitySubcription, EntitySchedule } from '../../typings/schedule'
 
 export class TestSchedule implements EntitySubcription {
-  public static schedule() {
+  public static schedule(): EntitySchedule {
     return {
       disable: false,
       cron: '1 * * * * *',

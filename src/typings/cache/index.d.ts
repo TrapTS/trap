@@ -22,7 +22,7 @@ export class BaseCache {
   public close(): Promise<void>
 }
 
-export interface Cache{
+export interface Cache {
   get(key: string): Promise<string | undefined>
   set(key: string, value: string): Promise<boolean>
   mget(keys: string[]): Promise<Object>

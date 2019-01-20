@@ -7,6 +7,7 @@ import { loadControllers } from './app/decorator/router'
 import { sendMessage } from './rabbitmq/send'
 import { InitServer } from './typings'
 import { classSchedule } from './schedule'
+import { Cache } from './cache'
 
 class Server implements InitServer {
   private app = new Koa()
@@ -14,6 +15,7 @@ class Server implements InitServer {
   initMiddleware() {
     classSchedule()
     this.app.context.sendMessage = sendMessage
+    this.app.context.cache = new Cache({ stdTTL: 86400000 })
     if (config.env === 'development') {
       this.app.use(logger())
     }

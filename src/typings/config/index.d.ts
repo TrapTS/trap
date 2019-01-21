@@ -4,6 +4,7 @@ export interface Config {
   port: number
   mysql: Mysql
   amqp_url?: string
+  redis: Redis
 }
 
 interface Mysql {
@@ -11,4 +12,11 @@ interface Mysql {
   user: string
   password: string
   database: string
+}
+
+interface Redis {
+  host: string
+  port: number
+  password: string
+  db: number
 }

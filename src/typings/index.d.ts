@@ -26,6 +26,7 @@ import { Mysql } from './database'
 import { EntityService } from './app/common'
 import { Prefix, Route } from './app/decorator'
 import { CacheStatus, BaseCache, Cache, RedisCache } from './cache'
+import { Middleware } from 'koa'
 
 declare module 'koa' {
   interface Request extends Koa.BaseRequest {
@@ -45,6 +46,8 @@ declare module 'koa' {
 
 export class InitServer {
   public initMiddleware(): void
+  public bindToContext<T>(name: string, func: T): T
+  public use(arg: Middleware): any
   public start(): void
 }
 

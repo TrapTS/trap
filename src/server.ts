@@ -8,31 +8,49 @@ import { sendMessage } from './rabbitmq/send'
 import { InitServer } from './typings'
 import { classSchedule } from './schedule'
 import { Cache } from './cache'
+import { Middleware } from 'koa'
+import { RedisCache } from './cache/redisCache'
 
 class Server implements InitServer {
   private app = new Koa()
 
-  initMiddleware() {
+  initMiddleware(): void {
     classSchedule()
-    this.app.context.sendMessage = sendMessage
-    this.app.context.cache = new Cache({ stdTTL: 86400000 })
-    if (config.env === 'development') {
-      this.app.use(logger())
-    }
-    this.app.use(bodyParser())
-
-    const router = loadControllers()
-    this.app.use(router.routes())
-    this.app.use(router.allowedMethods())
   }
 
-  async start() {
+  bindToContext<T>(name: string, func: T) {
+    return this.app.context[name] = func
+  }
+
+  use(arg: Middleware) {
+    return this.app.use(arg)
+  }
+
+  async start(): Promise<void> {
     await this.app.listen(config.port, () => {
       console.info('Application is listening port:', config.port)
     })
   }
 }
 
-const server = new Server()
-server.initMiddleware()
-server.start()
+(() => {
+  const server = new Server()
+  server.initMiddleware()
+  server.bindToContext('sendMessage', sendMessage)
+  server.bindToContext('cache', new Cache({ stdTTL: 86400000 }))
+  server.bindToContext('client', new RedisCache({
+    host: config.redis.host,
+    port: config.redis.port,
+    password: config.redis.password || '',
+    db: config.redis.db
+  }))
+  if (config.env === 'development') {
+    server.use(logger())
+  }
+  server.use(bodyParser())
+
+  const router = loadControllers()
+  server.use(router.routes())
+  server.use(router.allowedMethods())
+  server.start()
+})()

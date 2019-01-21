@@ -47,7 +47,7 @@ declare module 'koa' {
 export class InitServer {
   public initMiddleware(): void
   public bindToContext<T>(name: string, func: T): T
-  public use(arg: Middleware): any
+  public use(middleware: Middleware): any
   public start(): void
 }
 

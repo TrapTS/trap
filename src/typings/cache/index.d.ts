@@ -1,4 +1,5 @@
 import * as NodeCache from 'node-cache'
+import * as IORedis from 'ioredis'
 
 interface CacheStatus {
   keys: number
@@ -32,4 +33,29 @@ export interface Cache {
   getStats(): Promise<CacheStatus>
   flush(): Promise<void>
   close(): Promise<void>
+}
+
+export interface RedisCache {
+  get(key: IORedis.KeyType): Promise<string | null>
+  mget(...keys: IORedis.KeyType[]): Promise<any>
+  hget(key: IORedis.KeyType, field: string): Promise<string | null>
+  hmget(key: IORedis.KeyType, ...fields: string[]): Promise<any>
+  set(
+    key: IORedis.KeyType,
+    value: any,
+    expiryMode?: string | any[],
+    time?: number | string,
+    setMode?: number | string
+  ): Promise<string>
+  hset(key: IORedis.KeyType, field: string, value: any): Promise<0 | 1>
+  hmset(key: IORedis.KeyType, data: any): Promise<0 | 1>
+  setrange(key: IORedis.KeyType, offset: number, value: any): Promise<number>
+  del(...keys: IORedis.KeyType[]): Promise<number>
+  incr(key: IORedis.KeyType): Promise<number>
+  lrange(key: IORedis.KeyType, start: number, stop: number): Promise<any>
+  keys(pattern: string): Promise<string[]>
+  exec(): Promise<any>
+  flushall(): Promise<string>
+  sort(key: IORedis.KeyType, ...args: string[]): Promise<any>
+  patterndel(pattern: string): Promise<any>
 }

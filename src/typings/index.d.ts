@@ -25,7 +25,7 @@ import { Helper } from './extends'
 import { Mysql } from './database'
 import { EntityService } from './app/common'
 import { Prefix, Route } from './app/decorator'
-import { CacheStatus, BaseCache, Cache } from './cache'
+import { CacheStatus, BaseCache, Cache, RedisCache } from './cache'
 
 declare module 'koa' {
   interface Request extends Koa.BaseRequest {
@@ -39,6 +39,7 @@ declare module 'koa' {
     request: Request
     sendMessage(queue: string, message: string)
     cache: Cache
+    client: RedisCache
   }
 }
 

@@ -54,7 +54,7 @@ export class InitWSServer {
   public init(): void
 }
 
-export type Middleware = (ctx:Koa.Context,next:Function) => any;
+export type Middleware = (ctx:Koa.Context, next?:Function) => any;
 
 export {
   TypeList,

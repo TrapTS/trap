@@ -5,10 +5,9 @@ import * as logger from 'koa-logger'
 import { config } from './config'
 import { loadControllers } from './app/decorator/router'
 import { sendMessage } from './rabbitmq/send'
-import { InitServer } from './typings'
+import { InitServer, Middleware } from './typings'
 import { classSchedule } from './schedule'
 import { Cache } from './cache'
-import { Middleware } from 'koa'
 import { RedisCache } from './cache/redisCache'
 
 class Server implements InitServer {

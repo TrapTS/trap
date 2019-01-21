@@ -26,7 +26,6 @@ import { Mysql } from './database'
 import { EntityService } from './app/common'
 import { Prefix, Route } from './app/decorator'
 import { CacheStatus, BaseCache, Cache, RedisCache } from './cache'
-import { Middleware } from 'koa'
 
 declare module 'koa' {
   interface Request extends Koa.BaseRequest {
@@ -54,6 +53,8 @@ export class InitServer {
 export class InitWSServer {
   public init(): void
 }
+
+export type Middleware = (ctx:Koa.Context,next:Function) => any;
 
 export {
   TypeList,

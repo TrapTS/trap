@@ -13,36 +13,39 @@ import { RedisCache } from './cache/redisCache'
 class Server implements InitServer {
   private app = new Koa()
 
-  initMiddleware(): void {
+  public initMiddleware(): void {
     classSchedule()
   }
 
-  bindToContext<T>(name: string, func: T) {
-    return this.app.context[name] = func
+  public bindToContext<T>(name: string, func: T): T {
+    return (this.app.context[name] = func)
   }
 
-  use(arg: Middleware) {
-    return this.app.use(arg)
+  public use(middleware: Middleware) {
+    return this.app.use(middleware)
   }
 
-  async start(): Promise<void> {
+  public async start(): Promise<void> {
     await this.app.listen(config.port, () => {
       console.info('Application is listening port:', config.port)
     })
   }
 }
 
-(() => {
+;(() => {
   const server = new Server()
   server.initMiddleware()
   server.bindToContext('sendMessage', sendMessage)
   server.bindToContext('cache', new Cache({ stdTTL: 86400000 }))
-  server.bindToContext('client', new RedisCache({
-    host: config.redis.host,
-    port: config.redis.port,
-    password: config.redis.password || '',
-    db: config.redis.db
-  }))
+  server.bindToContext(
+    'client',
+    new RedisCache({
+      host: config.redis.host,
+      port: config.redis.port,
+      password: config.redis.password || '',
+      db: config.redis.db
+    })
+  )
   if (config.env === 'development') {
     server.use(logger())
   }

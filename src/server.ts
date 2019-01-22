@@ -13,10 +13,6 @@ import { RedisCache } from './cache/redisCache'
 class Server implements InitServer {
   private app = new Koa()
 
-  public initMiddleware(): void {
-    classSchedule()
-  }
-
   public bindToContext<T>(name: string, func: T): T {
     return (this.app.context[name] = func)
   }
@@ -25,16 +21,16 @@ class Server implements InitServer {
     return this.app.use(middleware)
   }
 
-  public async start(): Promise<void> {
-    await this.app.listen(config.port, () => {
-      console.info('Application is listening port:', config.port)
+  public async start(port: number): Promise<void> {
+    await this.app.listen(port, () => {
+      console.info('Application is listening port:', port)
     })
   }
 }
 
 ;(() => {
   const server = new Server()
-  server.initMiddleware()
+  classSchedule()
   server.bindToContext('sendMessage', sendMessage)
   server.bindToContext('cache', new Cache({ stdTTL: 86400000 }))
   server.bindToContext(
@@ -54,5 +50,5 @@ class Server implements InitServer {
   const router = loadControllers()
   server.use(router.routes())
   server.use(router.allowedMethods())
-  server.start()
+  server.start(config.port)
 })()

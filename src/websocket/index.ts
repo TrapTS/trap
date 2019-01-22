@@ -27,11 +27,16 @@ class Server {
               throw new Error('Socket configure mast be Object!!!')
             if (!socketObj[i].type || !socketObj[i].options)
               throw new Error('Socket module mast have type and options!!!')
-            if (socketObj[i].type === 'ON' && socketObj[i].channel)
+            if (socketObj[i].type === 'ON' && socketObj[i].channel) {
+              console.info('type: on, start at: ' + Date.now())
               socket.on(socketObj[i].channel, socketObj[i].options)
-            if (socketObj[i].type === 'EMIT' && socketObj[i].channel)
+            }
+            if (socketObj[i].type === 'EMIT' && socketObj[i].channel) {
+              console.info('type: emit, start at: ' + Date.now())
               socket.emit(socketObj[i].channel, socketObj[i].options)
+            }
             if (socketObj[i].type === 'RAW') {
+              console.info('type: raw, start at: ' + Date.now())
               const rawFunc: Function = socketObj[i].options
               rawFunc(socket)
             }

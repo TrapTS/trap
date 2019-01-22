@@ -49,7 +49,7 @@ export class InitServer {
 }
 
 export class InitWSServer {
-  public init(): void
+  public start(port: number): Promise<void>
 }
 
 export type Middleware = (ctx: Koa.Context, next?: Function) => any

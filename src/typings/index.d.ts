@@ -2,7 +2,6 @@ import * as Koa from 'koa'
 import { IService } from './app/service'
 import { IModel } from './app/model'
 import { Config } from './config'
-import { TypeList, Socket } from './websocket'
 import {
   CronSchedule,
   Schedule,
@@ -56,8 +55,6 @@ export class InitWSServer {
 export type Middleware = (ctx: Koa.Context, next?: Function) => any
 
 export {
-  TypeList,
-  Socket,
   CronSchedule,
   Schedule,
   ClassSchedule,

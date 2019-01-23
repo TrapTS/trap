@@ -19,8 +19,8 @@ const notes = [
 ]
 
 server.addService(proto.NoteService.service, {
-  list: () => {
-    return notes
+  list: (callback) => {
+    callback(null, notes)
   },
   get: (call, callback) => {
     let note = notes.find(n => n.id == call.request.id)
@@ -33,35 +33,35 @@ server.addService(proto.NoteService.service, {
       })
     }
   },
-  insert: call => {
+  insert: (call, callback) => {
     let note = call.request
     note.id = 'uuidv1()'
     notes.push(note)
-    return note
+    callback(null, note)
   },
-  update: call => {
+  update: (call, callback) => {
     let existingNote = notes.find(n => n.id == call.request.id)
     if (existingNote) {
       existingNote.title = call.request.title
       existingNote.content = call.request.content
-      return existingNote
+      callback(null, existingNote)
     } else {
-      return {
+      callback({
         code: grpc.status.NOT_FOUND,
         details: 'Not found'
-      }
+      })
     }
   },
-  delete: call => {
+  delete: (call, callback) => {
     let existingNoteIndex = notes.findIndex(n => n.id == call.request.id)
     if (existingNoteIndex != -1) {
       notes.splice(existingNoteIndex, 1)
-      return {}
+      callback(null, {})
     } else {
-      return {
+      callback({
         code: grpc.status.NOT_FOUND,
         details: 'Not found'
-      }
+      })
     }
   }
 })

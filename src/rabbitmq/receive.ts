@@ -3,7 +3,7 @@ import * as path from 'path'
 import * as dir from 'dir_filenames'
 import { ReceiveRabbitMQ } from '../typings'
 import { config } from '../config'
-import { Channel, Connection, Options } from 'amqplib'
+import { Channel, Connection, Options, ConsumeMessage, Message } from 'amqplib'
 
 const connect: Options.Connect = {
   hostname: '118.24.62.50',
@@ -24,10 +24,10 @@ const receiveMessage: Function = async (receive: ReceiveRabbitMQ) => {
   try {
     const channel: Channel = await connection.createChannel()
     await channel.assertQueue(receive.chananel)
-    await channel.consume(receive.chananel, async message => {
+    await channel.consume(receive.chananel, async (message: ConsumeMessage | null) => {
       const operateFunc: Function = receive.task
       operateFunc(message)
-      channel.ack(message)
+      channel.ack(message as Message)
     })
 
     connection.on(

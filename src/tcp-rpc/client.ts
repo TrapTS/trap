@@ -1,10 +1,14 @@
-import * as jayson from 'jayson'
+import * as jayson from 'jayson/promise'
 
-const client: jayson.Client = jayson.Client.tcp({
+const options = {
   port: 3000
-})
+}
 
-client.request('add', [1, 2], (err, res) => {
-  if (err) throw err
-  console.log('------>', res)
-})
+const client = jayson.Client.tcp(options)
+
+const demo = async () => {
+  const result = await client.request('add', [1, 2])
+  console.log('------>', result)
+}
+
+demo()

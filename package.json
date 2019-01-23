@@ -9,8 +9,8 @@
     "rabbit:send": "ts-node ./src/rabbitmq/send.ts",
     "rabbit:receive": "ts-node ./src/rabbitmq/receive.ts",
     "format": "prettier --write \"**/*.ts\"",
-    "rpc:server": "ts-node ./src/tcp-rpc/server.ts",
-    "rpc:client": "ts-node ./src/tcp-rpc/client.ts",
+    "rpc:server": "ts-node ./src/tcp-rpc/grpc/server.ts",
+    "rpc:client": "ts-node ./src/tcp-rpc/grpc/client.ts",
     "tsc": "tsc -p tsconfig.json"
   },
   "typings": "./src/typings/index.d.ts",
@@ -43,10 +43,12 @@
     "tslint-plugin-prettier": "2.0.1"
   },
   "dependencies": {
+    "@grpc/proto-loader": "^0.4.0",
     "amqplib": "0.5.3",
     "class-transformer": "0.2.0",
     "cron": "1.6.0",
     "dir_filenames": "1.0.6",
+    "grpc": "^1.18.0",
     "inversify": "5.0.1",
     "ioredis": "4.5.1",
     "jayson": "^2.1.1",

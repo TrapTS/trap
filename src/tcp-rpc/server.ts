@@ -1,8 +1,8 @@
-import * as jayson from 'jayson'
+import * as jayson from 'jayson/promise'
 
 const server: jayson.Server = new jayson.Server({
-  add: function(args, callback) {
-    callback(null, args[0] + args[1])
+  add: async (args: number[]) => {
+    return args[0] + args[1]
   }
 })
 

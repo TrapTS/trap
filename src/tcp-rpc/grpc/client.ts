@@ -1,5 +1,6 @@
 import * as grpc from 'grpc'
 import * as path from 'path'
+import { promisify } from 'util'
 import * as loader from '@grpc/proto-loader'
 
 let proto = grpc.loadPackageDefinition(
@@ -17,7 +18,11 @@ const client = new NoteService(
   grpc.credentials.createInsecure()
 )
 
-client.get({ id: '1' }, (err, data) => {
-  if (err) throw err
-  console.log('----->', data)
-})
+const getAsync = promisify(client.get).bind(client)
+
+const test = async () => {
+  const result = await getAsync({ id: '1' })
+  console.log('------>', result)
+}
+
+test()

@@ -1,8 +1,8 @@
 import * as socket from 'socket.io'
-import { config } from '../config'
 import * as dir from 'dir_filenames'
 import { isPlainObject } from 'lodash'
 import { Socket } from './types'
+import { resolve } from 'path'
 
 class Server {
   io: any
@@ -20,14 +20,18 @@ class Server {
       (socket): void => {
         console.log('User connected!!   ' + 'id: ' + socket.id)
 
-        const files: string[] = dir(`${config.appRoot}/src/websocket/normal`)
+        const files: string[] = dir(resolve(__dirname, './normal'))
         files.map(file => {
           const socketObj: Object = require(file)
           for (let i in socketObj) {
             const socketInfo: Socket = socketObj[i]
             if (isPlainObject(socketInfo)) {
-              if (!socketInfo.type || !socketInfo.options)
-                throw new Error('Socket module mast have type and options!!!')
+              if (socketInfo.type === 'ON' && !socketInfo.channel) {
+                throw new Error('Socket type is ON, channel required!!!')
+              }
+              if (socketInfo.type === 'EMIT' && !socketInfo.channel) {
+                throw new Error('Socket type is EMIT, channel required!!!')
+              }
               if (socketInfo.type === 'ON' && socketInfo.channel) {
                 console.info('type: on, start at: ' + Date.now())
                 socket.on(socketInfo.channel, socketInfo.options)
@@ -37,8 +41,8 @@ class Server {
                 socket.emit(socketInfo.channel, socketInfo.options)
               }
               if (socketInfo.type === 'RAW') {
-                console.info('type: raw, start at: ' + Date.now())
                 if (typeof socketInfo.options === 'function') {
+                  console.info('type: raw, start at: ' + Date.now())
                   const rawFunc: Function = socketInfo.options
                   rawFunc(socket)
                 }

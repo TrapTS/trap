@@ -1,7 +1,7 @@
 import * as development from './default.config'
 import * as release from './release.config'
 import * as prod from './prod.config'
-import * as _ from 'lodash'
+import { merge } from 'lodash'
 import { Config } from '../typings'
 
 const env: string = process.env.NODE_ENV || 'development'
@@ -17,4 +17,4 @@ const defaultConfig: Object = {
 }
 
 export let config: Config
-config = _.merge(defaultConfig, configs[env])
+config = merge(defaultConfig, configs[env])

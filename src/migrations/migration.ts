@@ -1,7 +1,6 @@
 import * as fs from 'fs'
-import * as _ from 'lodash'
 import { db } from './index'
-global.Promise = require('bluebird')
+import { isPlainObject } from 'lodash'
 import { config } from '../config'
 import * as path from 'path'
 
@@ -12,7 +11,7 @@ fs.readdirSync(`${appRoot}/migrations/operation`).map(file => {
   )
   const funcArray: Function[] = []
   migrations.map(migration => {
-    if (_.isPlainObject(migration) && migration.opt === 'create') {
+    if (isPlainObject(migration) && migration.opt === 'create') {
       return funcArray.push(async () => {
         const exists = await db.schema.hasTable(migration.table)
         if (!exists) {

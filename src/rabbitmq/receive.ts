@@ -24,11 +24,14 @@ const receiveMessage: Function = async (receive: ReceiveRabbitMQ) => {
   try {
     const channel: Channel = await connection.createChannel()
     await channel.assertQueue(receive.chananel)
-    await channel.consume(receive.chananel, async (message: ConsumeMessage | null) => {
-      const operateFunc: Function = receive.task
-      operateFunc(message)
-      channel.ack(message as Message)
-    })
+    await channel.consume(
+      receive.chananel,
+      async (message: ConsumeMessage | null) => {
+        const operateFunc: Function = receive.task
+        operateFunc(message)
+        channel.ack(message as Message)
+      }
+    )
 
     connection.on(
       'error',

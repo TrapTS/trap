@@ -10,7 +10,7 @@ Trap.ts is base on koa, running in node.js v8 runtime.
 - [ ] migrations
 - [x] schedule
 - [x] websocket
-- [ ] cache(redis)
+- [x] cache(redis)
 - [ ] service
 - [ ] model
 - [x] route decorator

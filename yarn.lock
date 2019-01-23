@@ -112,7 +112,7 @@
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.0.tgz#5a7306e367c539b9f6543499de8dd519fac37a8b"
 
-"@types/node@*", "@types/node@10.12.18":
+"@types/node@*", "@types/node@10.12.18", "@types/node@^10.3.5":
   version "10.12.18"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.18.tgz#1d3ca764718915584fcd9f6344621b7672665c67"
 
@@ -126,6 +126,13 @@
   dependencies:
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
+
+JSONStream@^1.3.1:
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/JSONStream/-/JSONStream-1.3.5.tgz#3208c1f08d3a4d99261ab64f92302bc15e111ca0"
+  dependencies:
+    jsonparse "^1.2.0"
+    through ">=2.2.7 <3"
 
 abbrev@1:
   version "1.1.1"
@@ -496,7 +503,7 @@ commander@2.15.1:
   version "2.15.1"
   resolved "http://registry.npmjs.org/commander/-/commander-2.15.1.tgz#df46e867d0fc2aec66a34662b406a9ccafff5b0f"
 
-commander@^2.19.0:
+commander@^2.12.2, commander@^2.19.0:
   version "2.19.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.19.0.tgz#f6198aa84e5b83c46054b94ddedbfed5ee9ff12a"
 
@@ -743,6 +750,16 @@ error-inject@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/error-inject/-/error-inject-1.0.0.tgz#e2b3d91b54aed672f309d950d154850fa11d4f37"
 
+es6-promise@^4.0.3:
+  version "4.2.5"
+  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.2.5.tgz#da6d0d5692efb461e082c14817fe2427d8f5d054"
+
+es6-promisify@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/es6-promisify/-/es6-promisify-5.0.0.tgz#5109d62f3e56ea967c4b63505aef08291c8a5203"
+  dependencies:
+    es6-promise "^4.0.3"
+
 escape-html@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
@@ -817,6 +834,10 @@ extglob@^2.0.4:
     regex-not "^1.0.0"
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
+
+eyes@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/eyes/-/eyes-0.1.8.tgz#62cf120234c683785d902348a800ef3e0cc20bc0"
 
 fast-diff@^1.1.1:
   version "1.2.0"
@@ -1350,9 +1371,30 @@ isobject@^3.0.0, isobject@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
 
+jayson@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/jayson/-/jayson-2.1.1.tgz#2cefed8c014f7d5b73e97cb3cfc8e0e6b02eeb35"
+  dependencies:
+    "@types/node" "^10.3.5"
+    JSONStream "^1.3.1"
+    commander "^2.12.2"
+    es6-promisify "^5.0.0"
+    eyes "^0.1.8"
+    json-stringify-safe "^5.0.1"
+    lodash "^4.17.10"
+    uuid "^3.2.1"
+
 jest-docblock@^21.0.0:
   version "21.2.0"
   resolved "https://registry.yarnpkg.com/jest-docblock/-/jest-docblock-21.2.0.tgz#51529c3b30d5fd159da60c27ceedc195faf8d414"
+
+json-stringify-safe@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
+
+jsonparse@^1.2.0:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/jsonparse/-/jsonparse-1.3.1.tgz#3f4dae4a91fac315f71062f8521cc239f1366280"
 
 keygrip@~1.0.3:
   version "1.0.3"
@@ -1512,7 +1554,7 @@ lodash.flatten@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.flatten/-/lodash.flatten-4.4.0.tgz#f31c22225a9632d2bbf8e4addbef240aa765a61f"
 
-lodash@4.17.11, lodash@4.x, lodash@^4.17.11:
+lodash@4.17.11, lodash@4.x, lodash@^4.17.10, lodash@^4.17.11:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
 
@@ -2427,6 +2469,10 @@ term-size@^1.2.0:
   dependencies:
     execa "^0.7.0"
 
+"through@>=2.2.7 <3":
+  version "2.3.8"
+  resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
+
 tildify@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/tildify/-/tildify-1.2.0.tgz#dcec03f55dca9b7aa3e5b04f21817eb56e63588a"
@@ -2601,7 +2647,7 @@ util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
 
-uuid@^3.3.2:
+uuid@^3.2.1, uuid@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
 

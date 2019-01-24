@@ -1,8 +1,8 @@
-import * as grpc from 'grpc'
-import * as path from 'path'
-import * as loader from '@grpc/proto-loader'
+import { Server, loadPackageDefinition, status, ServerCredentials } from 'grpc'
+import { resolve } from 'path'
+import { loadSync, PackageDefinition, Options } from '@grpc/proto-loader'
 
-const options: loader.Options = {
+const options: Options = {
   keepCase: true,
   longs: String,
   enums: String,
@@ -10,10 +10,10 @@ const options: loader.Options = {
   oneofs: true
 }
 
-let proto: loader.PackageDefinition = grpc.loadPackageDefinition(
-  loader.loadSync(path.resolve(__dirname, 'proto/notes.proto'), options)
+let proto: PackageDefinition = loadPackageDefinition(
+  loadSync(resolve(__dirname, 'proto/notes.proto'), options)
 )
-const server: grpc.Server = new grpc.Server()
+const server: Server = new Server()
 
 interface Note {
   id: string
@@ -36,7 +36,7 @@ server.addService(proto.NoteService['service'], {
       callback(null, note)
     } else {
       callback({
-        code: grpc.status.NOT_FOUND,
+        code: status.NOT_FOUND,
         details: 'Not found'
       })
     }
@@ -55,7 +55,7 @@ server.addService(proto.NoteService['service'], {
       callback(null, existingNote)
     } else {
       callback({
-        code: grpc.status.NOT_FOUND,
+        code: status.NOT_FOUND,
         details: 'Not found'
       })
     }
@@ -67,14 +67,14 @@ server.addService(proto.NoteService['service'], {
       callback(null, {})
     } else {
       callback({
-        code: grpc.status.NOT_FOUND,
+        code: status.NOT_FOUND,
         details: 'Not found'
       })
     }
   }
 })
 
-server.bindAsync('127.0.0.1:50051', grpc.ServerCredentials.createInsecure(), () => {
+server.bindAsync('127.0.0.1:50051', ServerCredentials.createInsecure(), () => {
   console.log('Server running at http://127.0.0.1:50051')
 })
 server.start()

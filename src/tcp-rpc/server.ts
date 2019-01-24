@@ -1,6 +1,6 @@
-import * as jayson from 'jayson/promise'
+import { Server } from 'jayson/promise'
 
-const server: jayson.Server = new jayson.Server({
+const server: Server = new Server({
   add: async (args: number[]) => {
     return args[0] + args[1]
   }

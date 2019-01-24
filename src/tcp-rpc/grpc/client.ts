@@ -1,10 +1,10 @@
-import * as grpc from 'grpc'
-import * as path from 'path'
+import { loadPackageDefinition, credentials } from 'grpc'
+import { resolve } from 'path'
 import { promisify } from 'util'
-import * as loader from '@grpc/proto-loader'
+import { loadSync } from '@grpc/proto-loader'
 
-let proto = grpc.loadPackageDefinition(
-  loader.loadSync(path.resolve(__dirname, 'proto/notes.proto'), {
+let proto = loadPackageDefinition(
+  loadSync(resolve(__dirname, 'proto/notes.proto'), {
     keepCase: true,
     longs: String,
     enums: String,
@@ -15,7 +15,7 @@ let proto = grpc.loadPackageDefinition(
 const NoteService = proto.NoteService
 const client = new NoteService(
   'localhost:50051',
-  grpc.credentials.createInsecure()
+  credentials.createInsecure()
 )
 
 const getAsync = promisify(client.get).bind(client)

@@ -97,7 +97,7 @@
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/@types/koa-compose/-/koa-compose-3.2.2.tgz#dc106e000bbf92a3ac900f756df47344887ee847"
 
-"@types/koa-generic-session@^1.0.2":
+"@types/koa-generic-session@1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@types/koa-generic-session/-/koa-generic-session-1.0.2.tgz#9481adaa3d10f5f5cd6a2bc915e68e8f83adf80f"
   dependencies:
@@ -1464,7 +1464,7 @@ koa-convert@^1.2.0:
     co "^4.6.0"
     koa-compose "^3.0.0"
 
-koa-generic-session@^2.0.1:
+koa-generic-session@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/koa-generic-session/-/koa-generic-session-2.0.1.tgz#d6bdf4f288b2f553065d049a630c28c76d877ccf"
   dependencies:
@@ -1487,7 +1487,7 @@ koa-logger@3.2.0:
     humanize-number "0.0.2"
     passthrough-counter "^1.0.0"
 
-koa-redis@^3.1.3:
+koa-redis@3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/koa-redis/-/koa-redis-3.1.3.tgz#b1015bc243d081226737a60f73c46322a6fb5f78"
   dependencies:

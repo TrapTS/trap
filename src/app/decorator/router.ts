@@ -1,7 +1,7 @@
 import * as Router from 'koa-router'
 import * as dir from 'dir_filenames'
 import { Prefix, Route } from '../../typings'
-import { Middleware } from 'koa';
+import { Middleware } from 'koa'
 
 const router = new Router({
   prefix: '/v1'
@@ -24,7 +24,11 @@ export const prefix: Prefix = (path: string = '') => {
   }
 }
 
-export const route: Route = (path: string, method: Method, ...middleware: Array<Middleware>) => {
+export const route: Route = (
+  path: string,
+  method: Method,
+  ...middleware: Array<Middleware>
+) => {
   return (target: any, _key?: string | symbol, descriptor?: any): void => {
     routeUpdate(target, method, path, descriptor, ...middleware)
   }
@@ -38,7 +42,13 @@ const prefixUpdateRoute = (target: any, path: string): void => {
   router.use(path, target.prototype.router.allowedMethods())
 }
 
-const routeUpdate = (target: any, method: Method, path: string, descriptor?: any, ...middleware: Array<Middleware>) => {
+const routeUpdate = (
+  target: any,
+  method: Method,
+  path: string,
+  descriptor?: any,
+  ...middleware: Array<Middleware>
+) => {
   if (!target.router) {
     target.router = new Router()
   }

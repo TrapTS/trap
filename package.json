@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "Trap is base on koa, running in node.js v8 runtime.",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon --exec 'ts-node --cache-directory .cache' src/server.ts",
-    "start": "NODE_ENV=release ts-node ./src/server.ts",
+    "dev": "NODE_ENV=development nodemon --exec 'ts-node --cache-directory .cache' src/app.ts",
+    "start": "NODE_ENV=release ts-node ./src/app.ts",
     "ws:dev": "NODE_ENV=development ts-node ./src/wsServer.ts",
-    "rabbit:send": "ts-node ./src/rabbitmq/send.ts",
     "rabbit:receive": "ts-node ./src/rabbitmq/receive.ts",
     "format": "prettier --write \"**/*.ts\"",
     "tsc": "tsc -p tsconfig.json"

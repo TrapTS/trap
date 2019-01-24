@@ -55,6 +55,6 @@
     "node-cache": "4.2.0",
     "reflect-metadata": "0.1.13",
     "socket.io": "2.2.0",
-    "typescript": "3.2.2"
+    "typescript": "3.2.4"
   }
 }

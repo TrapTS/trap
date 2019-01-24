@@ -16,7 +16,7 @@ Trap.ts is base on koa, running in node.js v8 runtime.
 - [x] route decorator
 - [x] controller
 - [ ] auth
-- [ ] session
+- [x] session
 - [ ] cors
 - [ ] whitelist
 - [ ] role

@@ -10,6 +10,10 @@ export class Server implements InitServer {
     return (this.app.context[name] = func)
   }
 
+  public keys(args: string[]) {
+    return this.app.keys = args
+  }
+
   public use(middleware: Middleware) {
     return this.app.use(middleware)
   }

@@ -32,6 +32,7 @@ declare module 'koa' {
   }
 
   interface Context extends Koa.BaseContext {
+    session: Session | null
     model: IModel
     service: IService
     config: Config
@@ -44,6 +45,7 @@ declare module 'koa' {
 
 export class InitServer {
   public bindToContext<T>(name: string, func: T): T
+  public keys(args: string[]): any
   public use(middleware: Middleware): any
   public start(port: number): void
 }
@@ -52,7 +54,7 @@ export class InitWSServer {
   public start(port: number): Promise<void>
 }
 
-export type Middleware = (ctx: Koa.Context, next?: Function) => any
+export type Middleware = (ctx: Koa.Context, next?: any) => any | Promise<any>
 
 export {
   CronSchedule,

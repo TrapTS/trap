@@ -8,6 +8,7 @@ import { classSchedule } from './schedule'
 import { Cache } from './cache'
 import { RedisCache } from './cache/redisCache'
 import { Server } from './server'
+import { redisSession } from './extends/application'
 
 const bootstrap = () => {
   const server = new Server()
@@ -27,6 +28,9 @@ const bootstrap = () => {
     server.use(logger())
   }
   server.use(bodyParser())
+
+  server.keys(['Hello', 'World'])
+  server.use(redisSession)
 
   const router = loadControllers()
   server.use(router.routes())

@@ -2,24 +2,32 @@ import * as grpc from 'grpc'
 import * as path from 'path'
 import * as loader from '@grpc/proto-loader'
 
-let proto = grpc.loadPackageDefinition(
-  loader.loadSync(path.resolve(__dirname, "proto/notes.proto"), {
-    keepCase: true,
-    longs: String,
-    enums: String,
-    defaults: true,
-    oneofs: true
-  })
+const options: loader.Options = {
+  keepCase: true,
+  longs: String,
+  enums: String,
+  defaults: true,
+  oneofs: true
+}
+
+let proto: loader.PackageDefinition = grpc.loadPackageDefinition(
+  loader.loadSync(path.resolve(__dirname, 'proto/notes.proto'), options)
 )
 const server: grpc.Server = new grpc.Server()
 
-const notes = [
+interface Note {
+  id: string
+  title: string
+  content: string
+}
+
+const notes: Note[] = [
   { id: '1', title: 'Note 1', content: 'Content 1' },
   { id: '2', title: 'Note 2', content: 'Content 2' }
 ]
 
-server.addService(proto.NoteService.service, {
-  list: (callback) => {
+server.addService(proto.NoteService['service'], {
+  list: callback => {
     callback(null, notes)
   },
   get: (call, callback) => {
@@ -66,6 +74,7 @@ server.addService(proto.NoteService.service, {
   }
 })
 
-server.bind('127.0.0.1:50051', grpc.ServerCredentials.createInsecure())
-console.log('Server running at http://127.0.0.1:50051')
+server.bindAsync('127.0.0.1:50051', grpc.ServerCredentials.createInsecure(), () => {
+  console.log('Server running at http://127.0.0.1:50051')
+})
 server.start()

@@ -4,7 +4,7 @@ import { promisify } from 'util'
 import * as loader from '@grpc/proto-loader'
 
 let proto = grpc.loadPackageDefinition(
-  loader.loadSync(path.resolve(__dirname, "proto/notes.proto"), {
+  loader.loadSync(path.resolve(__dirname, 'proto/notes.proto'), {
     keepCase: true,
     longs: String,
     enums: String,

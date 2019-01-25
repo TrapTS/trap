@@ -2,7 +2,7 @@ import { Middleware, InitServer, InitWSServer } from '../typings'
 import * as Koa from 'koa'
 import * as http from 'http'
 import { SocketServer } from '../websocket'
-import { helper } from '../extends/context';
+import { helper } from '../extends/context'
 
 export class Server implements InitServer {
   private app = new Koa()

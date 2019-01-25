@@ -8,10 +8,10 @@ export const roles = (options: string | string[]): Middleware => {
       if (options.includes(ctx.session.user.role as string)) {
         await next()
       } else {
-        ctx.throw(401, '没有权限')
+        ctx.throw(401, 'Permission denied')
       }
     } else {
-      ctx.throw(403, '未登录')
+      ctx.throw(403, 'Restricted access')
     }
   }
 }

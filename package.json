@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "NODE_ENV=development nodemon --exec ts-node src/app.ts",
     "start": "NODE_ENV=release ts-node ./src/app.ts",
-    "ws:dev": "NODE_ENV=development ts-node ./src/wsServer.ts",
+    "ws:dev": "NODE_ENV=development ts-node ./src/ws.ts",
     "rabbit:receive": "ts-node ./src/rabbitmq/receive.ts",
     "format": "prettier --write \"**/*.ts\"",
     "tsc": "tsc -p tsconfig.json"

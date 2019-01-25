@@ -24,6 +24,7 @@ const bootstrap = () => {
       db: config.redis.db
     })
   )
+  server.bindToContext('config', config)
   if (config.env === 'development') {
     server.use(logger())
   }

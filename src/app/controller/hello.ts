@@ -5,6 +5,6 @@ import { Context } from 'koa'
 export class Hello {
   @route('/', Method.GET)
   async index(ctx: Context): Promise<void> {
-    ctx.body = 'Hello World'
+    ctx.body = await ctx.service.hello.index('Hello World')
   }
 }

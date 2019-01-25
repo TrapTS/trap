@@ -1,10 +1,20 @@
 import * as Router from 'koa-router'
 import * as dir from 'dir_filenames'
-import { Prefix, Route, Middleware } from '../../typings'
+import { Middleware } from '../../typings'
 
 const router = new Router({
   prefix: '/v1'
 })
+
+type Prefix = (
+  path: string
+) => (target: any, _key?: string | symbol, _descriptor?: any) => void
+
+type Route = (
+  path: string,
+  method: Method,
+  ...middleware: Array<Middleware>
+) => (target: any, _key?: string | symbol, descriptor?: any) => void
 
 export enum Method {
   HEAD,

@@ -23,7 +23,6 @@ import {
 import { Helper } from './extends'
 import { Mysql } from './database'
 import { EntityService } from './app/common'
-import { Prefix, Route } from './app/decorator'
 import { CacheStatus, BaseCache, Cache, RedisCache } from './cache'
 
 declare module 'koa' {
@@ -76,8 +75,6 @@ export {
   Mysql,
   Config,
   EntityService,
-  Prefix,
-  Route,
   IModel,
   IService,
   CacheStatus,

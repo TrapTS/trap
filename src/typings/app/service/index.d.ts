@@ -1,1 +1,3 @@
-export interface IService {}
+export interface IService {
+  hello: HelloService
+}

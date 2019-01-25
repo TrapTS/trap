@@ -11,15 +11,15 @@ Trap.ts is base on koa, running in node.js v8 runtime.
 - [x] schedule
 - [x] websocket
 - [x] cache(redis)
-- [ ] service
-- [ ] model
+- [x] service
+- [x] model
 - [x] route decorator
 - [x] controller
 - [ ] auth
 - [x] session
 - [ ] cors
 - [ ] whitelist
-- [ ] role
+- [x] role
 
 # The MIT License (MIT)
 

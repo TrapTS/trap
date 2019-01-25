@@ -2,9 +2,21 @@ import { Middleware, InitServer, InitWSServer } from '../typings'
 import * as Koa from 'koa'
 import * as http from 'http'
 import { SocketServer } from '../websocket'
+import { helper } from '../extends/context';
 
 export class Server implements InitServer {
   private app = new Koa()
+
+  constructor() {
+    this.bindHelper()
+  }
+
+  bindHelper() {
+    const keys: string[] = Object.keys(helper)
+    keys.map(key => {
+      Object.defineProperty(this.app.context, key, helper[key])
+    })
+  }
 
   public bindToContext<T>(name: string, func: T): T {
     return (this.app.context[name] = func)

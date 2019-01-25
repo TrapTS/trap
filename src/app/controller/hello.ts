@@ -6,6 +6,6 @@ import { roles } from '../common/role'
 export class Hello {
   @route('/', Method.GET, roles('admin'))
   async index(ctx: Context): Promise<void> {
-    ctx.body = 'Hello World'
+    ctx.body = await ctx.service.hello.index('Hello World')
   }
 }

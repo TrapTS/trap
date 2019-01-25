@@ -11,7 +11,7 @@ export class Server implements InitServer {
   }
 
   public keys(args: string[]) {
-    return this.app.keys = args
+    return (this.app.keys = args)
   }
 
   public use(middleware: Middleware) {

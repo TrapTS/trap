@@ -20,6 +20,8 @@ Trap.ts is base on koa, running in node.js v8 runtime.
 - [x] cors
 - [ ] whitelist
 - [x] role
+- [x] Dockerfile
+- [ ] Makefile
 
 # The MIT License (MIT)
 

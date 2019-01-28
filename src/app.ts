@@ -8,7 +8,7 @@ import { classSchedule } from './schedule'
 import { Cache } from './cache'
 import { RedisCache } from './cache/redisCache'
 import { Server } from './server'
-import { redisSession } from './extends/application'
+import { redisSession, cors } from './extends/application'
 
 const bootstrap = () => {
   const server = new Server()
@@ -32,6 +32,7 @@ const bootstrap = () => {
 
   server.keys(['Hello', 'World'])
   server.use(redisSession)
+  server.use(cors)
 
   const router = loadControllers()
   server.use(router.routes())

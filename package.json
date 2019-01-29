@@ -8,7 +8,7 @@
     "ws:dev": "NODE_ENV=development ts-node ./src/ws.ts",
     "rabbit:receive": "ts-node ./src/rabbitmq/receive.ts",
     "format": "prettier --write \"**/*.ts\"",
-    "git-tag" : "PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag $PACKAGE_VERSION && git push --tags",
+    "git-tag": "PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag $PACKAGE_VERSION && git push --tags",
     "tsc": "tsc -p tsconfig.json"
   },
   "typings": "./src/typings/index.d.ts",
@@ -45,9 +45,10 @@
   "dependencies": {
     "amqplib": "0.5.3",
     "class-transformer": "0.2.0",
+    "class-transformer-validator": "^0.6.0",
+    "class-validator": "^0.9.1",
     "cron": "1.6.0",
     "dir_filenames": "1.0.6",
-    "inversify": "5.0.1",
     "ioredis": "4.5.1",
     "knex": "0.16.3",
     "koa": "2.6.2",

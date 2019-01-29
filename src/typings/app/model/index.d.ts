@@ -1,3 +1,6 @@
+import { IUser } from '../../../app/models/user'
+
 export interface IModel {
-  hello: Hello
+  hello: IHello
+  user: IUser
 }

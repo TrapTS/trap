@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import { db } from './index'
-import { isPlainObject } from 'lodash'
+import { isPlainObject, union } from 'lodash'
 import { config } from '../config'
 import * as path from 'path'
 import { AddColumn } from '../typings'
@@ -15,6 +15,8 @@ enum Operation {
   drop,
   raw
 }
+
+let tasks: Function[] = []
 
 const appRoot = config.appRoot
 fs.readdirSync(`${appRoot}/migrations/operation`).map(file => {
@@ -126,5 +128,28 @@ fs.readdirSync(`${appRoot}/migrations/operation`).map(file => {
         }
       })
     }
+    if (isPlainObject(migration) && migration.opt === Operation.renameTable) {
+      return funcArray.push(async () => {
+        const exists: boolean = await db.schema.hasTable(migration.from_table)
+        if (exists) {
+          return db.schema.renameTable(migration.from_table, migration.to_table)
+        }
+      })
+    }
+    if (isPlainObject(migration) && migration.opt === Operation.raw) {
+      return funcArray.push(async () => {
+        return db.schema.raw(migration.sql)
+      })
+    }
   })
+  tasks = union(tasks, funcArray)
 })
+
+const schedule = async () => {
+  for await (let task of tasks) {
+    task()
+  }
+  process.exit()
+}
+
+schedule()

@@ -3,7 +3,18 @@ import { db } from './index'
 import { isPlainObject } from 'lodash'
 import { config } from '../config'
 import * as path from 'path'
-import { AddColumn } from '../typings';
+import { AddColumn } from '../typings'
+
+enum Operation {
+  create,
+  addColumn,
+  dropColumn,
+  renameColumn,
+  renameTable,
+  query,
+  drop,
+  raw
+}
 
 const appRoot = config.appRoot
 fs.readdirSync(`${appRoot}/migrations/operation`).map(file => {
@@ -12,7 +23,7 @@ fs.readdirSync(`${appRoot}/migrations/operation`).map(file => {
   )
   const funcArray: Function[] = []
   migrations.map(migration => {
-    if (isPlainObject(migration) && migration.opt === 'create') {
+    if (isPlainObject(migration) && migration.opt === Operation.create) {
       return funcArray.push(async () => {
         const exists: boolean = await db.schema.hasTable(migration.table)
         if (!exists) {
@@ -49,24 +60,69 @@ fs.readdirSync(`${appRoot}/migrations/operation`).map(file => {
         }
       })
     }
-    if (isPlainObject(migration) && migration.opt === 'addColumn') {
+    if (isPlainObject(migration) && migration.opt === Operation.addColumn) {
       return funcArray.push(async () => {
-        const exists: boolean = await db.schema.hasColumn(migration.table, migration.field)
+        const exists: boolean = await db.schema.hasColumn(
+          migration.table,
+          migration.field
+        )
         if (!exists) {
           return db.schema.table(migration.table, t => {
             let column
             const operate: AddColumn = migration
-            if (operate.content.type === 'string' || operate.content.type === 'varchar' || operate.content.type === 'char') {
-              column = t[operate.content.type](operate.field, operate.content.length)
-            } else if (operate.content.type === 'float' || operate.content.type === 'double' || operate.content.type === 'decimal') {
-              column = t[operate.content.type](operate.field, operate.content.precision, operate.content.scale)
+            if (
+              operate.content.type === 'string' ||
+              operate.content.type === 'varchar' ||
+              operate.content.type === 'char'
+            ) {
+              column = t[operate.content.type](
+                operate.field,
+                operate.content.length
+              )
+            } else if (
+              operate.content.type === 'float' ||
+              operate.content.type === 'double' ||
+              operate.content.type === 'decimal'
+            ) {
+              column = t[operate.content.type](
+                operate.field,
+                operate.content.precision,
+                operate.content.scale
+              )
             } else {
               column = t[operate.content.type](operate.field)
             }
-            if (operate.content.default) column.defaultTo(operate.content.default)
+            if (operate.content.default)
+              column.defaultTo(operate.content.default)
             if (operate.content.comment) column.comment(operate.content.comment)
             if (operate.content.after) column.after(operate.content.after)
           })
+        }
+      })
+    }
+    if (isPlainObject(migration) && migration.opt === Operation.dropColumn) {
+      return funcArray.push(async () => {
+        const exists: boolean = await db.schema.hasColumn(
+          migration.table,
+          migration.from_column
+        )
+        if (exists) {
+          return db.schema.table(migration.table, t =>
+            t.renameColumn(migration.from_column, migration.to_column)
+          )
+        }
+      })
+    }
+    if (isPlainObject(migration) && migration.opt === Operation.renameColumn) {
+      return funcArray.push(async () => {
+        const exists: boolean = await db.schema.hasColumn(
+          migration.table,
+          migration.from_column
+        )
+        if (exists) {
+          return db.schema.table(migration.table, t =>
+            t.renameColumn(migration.from_column, migration.to_column)
+          )
         }
       })
     }

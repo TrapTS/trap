@@ -3,6 +3,7 @@ import { db } from './index'
 import { isPlainObject } from 'lodash'
 import { config } from '../config'
 import * as path from 'path'
+import { AddColumn } from '../typings';
 
 const appRoot = config.appRoot
 fs.readdirSync(`${appRoot}/migrations/operation`).map(file => {
@@ -13,7 +14,7 @@ fs.readdirSync(`${appRoot}/migrations/operation`).map(file => {
   migrations.map(migration => {
     if (isPlainObject(migration) && migration.opt === 'create') {
       return funcArray.push(async () => {
-        const exists = await db.schema.hasTable(migration.table)
+        const exists: boolean = await db.schema.hasTable(migration.table)
         if (!exists) {
           return db.schema.createTable(migration.table, t => {
             for (let i in migration.column) {
@@ -44,6 +45,27 @@ fs.readdirSync(`${appRoot}/migrations/operation`).map(file => {
                 }
               }
             }
+          })
+        }
+      })
+    }
+    if (isPlainObject(migration) && migration.opt === 'addColumn') {
+      return funcArray.push(async () => {
+        const exists: boolean = await db.schema.hasColumn(migration.table, migration.field)
+        if (!exists) {
+          return db.schema.table(migration.table, t => {
+            let column
+            const operate: AddColumn = migration
+            if (operate.content.type === 'string' || operate.content.type === 'varchar' || operate.content.type === 'char') {
+              column = t[operate.content.type](operate.field, operate.content.length)
+            } else if (operate.content.type === 'float' || operate.content.type === 'double' || operate.content.type === 'decimal') {
+              column = t[operate.content.type](operate.field, operate.content.precision, operate.content.scale)
+            } else {
+              column = t[operate.content.type](operate.field)
+            }
+            if (operate.content.default) column.defaultTo(operate.content.default)
+            if (operate.content.comment) column.comment(operate.content.comment)
+            if (operate.content.after) column.after(operate.content.after)
           })
         }
       })

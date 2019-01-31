@@ -23,7 +23,17 @@ export interface AddColumn {
   opt: Operation
   table: string
   field: string
-  context: Object
+  content: Content
+}
+
+interface Content {
+  type: string
+  length?: number
+  precision?: number
+  scale?: string
+  default?: any
+  comment?: string
+  after?: string
 }
 
 export interface DropColumn {

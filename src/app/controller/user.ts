@@ -8,7 +8,6 @@ export class UserController extends BaseController {
   async login(ctx: Context) {
     const params = super.deserialize(ctx.model.user.Login, ctx.request.body)
     await super.validate(ctx.model.user.Login, ctx.request.body)
-    console.log('----->', params)
-    ctx.body = 'Hello World'
+    ctx.body = await ctx.service.user.login(params)
   }
 }

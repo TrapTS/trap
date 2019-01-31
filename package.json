@@ -45,8 +45,8 @@
   "dependencies": {
     "amqplib": "0.5.3",
     "class-transformer": "0.2.0",
-    "class-transformer-validator": "^0.6.0",
-    "class-validator": "^0.9.1",
+    "class-transformer-validator": "0.6.0",
+    "class-validator": "0.9.1",
     "cron": "1.6.0",
     "dir_filenames": "1.0.6",
     "ioredis": "4.5.1",

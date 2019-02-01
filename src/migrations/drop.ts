@@ -6,21 +6,23 @@ import { Migration } from './types'
 import { Operation } from './enum'
 
 let tasks: Function[] = []
-readdirSync(join('./operation')).map(file => {
-  let migrations: Migration[] = require(join(__dirname, file))(db)
+readdirSync(join(__dirname, './operation')).map(file => {
+  let migrations = require(join(__dirname, './operation/' + file))(db)
   let funcArray: Function[] = []
-  migrations.map(migration => {
+  for (let i in migrations) {
+    const migration: Migration = migrations[i]
     if (isPlainObject(migration) && migration.opt === Operation.drop) {
-      return funcArray.push(() => {
+      funcArray.push(() => {
         return db.schema.dropTable(<string>migration.table)
       })
     }
-  })
+  }
   tasks = union(tasks, funcArray)
 })
 
 const schedule = async () => {
   for await (let task of tasks) {
+    console.log('sync db done!')
     await task()
   }
   process.exit()

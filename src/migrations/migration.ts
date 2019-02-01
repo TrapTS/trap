@@ -1,25 +1,22 @@
 import { readdirSync } from 'fs'
 import { db } from './index'
-import { isPlainObject, union } from 'lodash'
-import { config } from '../config'
+import { union } from 'lodash'
 import { join } from 'path'
 import { AddColumn, Migration } from './types'
 import { Operation } from './enum'
 
 let tasks: Function[] = []
 
-const appRoot = config.appRoot
-readdirSync(`${appRoot}/src/migrations/operation`).map(file => {
-  let migrations: Migration[] = require(join(
-    `${appRoot}/src/migrations/operation`,
-    file
-  ))(db)
+readdirSync(join(__dirname, './operation')).map(file => {
+  let migrations = require(join(__dirname, './operation/' + file))
   const funcArray: Function[] = []
-  migrations.map(migration => {
-    if (isPlainObject(migration) && migration.opt === Operation.create) {
-      return funcArray.push(async () => {
-        const exists: boolean = await db.schema.hasTable(<string>(
-          migration.table
+  for(let i in migrations) {
+    const migration: Migration = migrations[i]
+    if (migration.opt === Operation.create) {
+      console.log('------>', migration)
+      funcArray.push(async () => {
+        const exists: boolean = await db.schema.hasTable((
+          <string>migration.table
         ))
         if (!exists) {
           return db.schema.createTable(<string>migration.table, t => {
@@ -55,8 +52,8 @@ readdirSync(`${appRoot}/src/migrations/operation`).map(file => {
         }
       })
     }
-    if (isPlainObject(migration) && migration.opt === Operation.addColumn) {
-      return funcArray.push(async () => {
+    if (migration.opt === Operation.addColumn) {
+      funcArray.push(async () => {
         const exists: boolean = await db.schema.hasColumn(
           <string>migration.table,
           <string>migration.field
@@ -95,8 +92,8 @@ readdirSync(`${appRoot}/src/migrations/operation`).map(file => {
         }
       })
     }
-    if (isPlainObject(migration) && migration.opt === Operation.dropColumn) {
-      return funcArray.push(async () => {
+    if (migration.opt === Operation.dropColumn) {
+      funcArray.push(async () => {
         const exists: boolean = await db.schema.hasColumn(
           <string>migration.table,
           <string>migration.from_column
@@ -111,8 +108,8 @@ readdirSync(`${appRoot}/src/migrations/operation`).map(file => {
         }
       })
     }
-    if (isPlainObject(migration) && migration.opt === Operation.renameColumn) {
-      return funcArray.push(async () => {
+    if (migration.opt === Operation.renameColumn) {
+      funcArray.push(async () => {
         const exists: boolean = await db.schema.hasColumn(
           <string>migration.table,
           <string>migration.from_column
@@ -127,8 +124,8 @@ readdirSync(`${appRoot}/src/migrations/operation`).map(file => {
         }
       })
     }
-    if (isPlainObject(migration) && migration.opt === Operation.renameTable) {
-      return funcArray.push(async () => {
+    if (migration.opt === Operation.renameTable) {
+      funcArray.push(async () => {
         const exists: boolean = await db.schema.hasTable(<string>(
           migration.from_table
         ))
@@ -140,12 +137,12 @@ readdirSync(`${appRoot}/src/migrations/operation`).map(file => {
         }
       })
     }
-    if (isPlainObject(migration) && migration.opt === Operation.raw) {
-      return funcArray.push(async () => {
+    if (migration.opt === Operation.raw) {
+      funcArray.push(async () => {
         return db.schema.raw(<string>migration.sql)
       })
     }
-  })
+  }
   tasks = union(tasks, funcArray)
 })
 
@@ -153,6 +150,7 @@ const schedule = async () => {
   for await (let task of tasks) {
     await task()
   }
+  console.log('sync db done!')
   process.exit()
 }
 

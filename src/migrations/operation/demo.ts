@@ -1,7 +1,10 @@
-module.exports = () => {
+import { Migration } from '../types'
+import { Operation } from '../enum'
+
+module.exports = (): Migration[] => {
   return [
     {
-      opt: 'create',
+      opt: Operation.create,
       table: 'demo_users',
       column: {
         id: { type: 'increments' },
@@ -13,7 +16,7 @@ module.exports = () => {
       }
     },
     {
-      opt: 'addColumn',
+      opt: Operation.addColumn,
       table: 'demo_users',
       field: 'real_name',
       content: {
@@ -24,12 +27,12 @@ module.exports = () => {
       }
     },
     {
-      opt: 'renameTable',
+      opt: Operation.renameTable,
       from_table: 'demo_users',
       to_table: 'demo_new_users'
     }
     // {
-    //   opt: 'query',
+    //   opt: Operation.query,
     //   sql: 'ALTER TABLE user_name CHANGE name name INT;'
     // }
   ]

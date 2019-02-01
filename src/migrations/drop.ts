@@ -21,7 +21,7 @@ readdirSync(join('./operation')).map(file => {
 
 const schedule = async () => {
   for await (let task of tasks) {
-    task()
+    await task()
   }
   process.exit()
 }

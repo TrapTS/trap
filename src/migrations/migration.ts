@@ -3,15 +3,15 @@ import { db } from './index'
 import { isPlainObject, union } from 'lodash'
 import { config } from '../config'
 import { join } from 'path'
-import { AddColumn, Migration } from '../typings'
-import { Operation } from '../typings/migrations/operation'
+import { AddColumn, Migration } from './types'
+import { Operation } from './enum'
 
 let tasks: Function[] = []
 
 const appRoot = config.appRoot
-readdirSync(`${appRoot}/migrations/operation`).map(file => {
+readdirSync(`${appRoot}/src/migrations/operation`).map(file => {
   let migrations: Migration[] = require(join(
-    `${appRoot}/migrations/operation`,
+    `${appRoot}/src/migrations/operation`,
     file
   ))(db)
   const funcArray: Function[] = []
@@ -129,9 +129,9 @@ readdirSync(`${appRoot}/migrations/operation`).map(file => {
     }
     if (isPlainObject(migration) && migration.opt === Operation.renameTable) {
       return funcArray.push(async () => {
-        const exists: boolean = await db.schema.hasTable(
-          <string>migration.from_table
-        )
+        const exists: boolean = await db.schema.hasTable(<string>(
+          migration.from_table
+        ))
         if (exists) {
           return db.schema.renameTable(
             <string>migration.from_table,

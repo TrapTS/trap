@@ -10,16 +10,6 @@ import {
   EntitySubcription
 } from './schedule'
 import { ReceiveRabbitMQ, SendMessageFunc } from './rabbitmq'
-import {
-  Migration,
-  CreateTable,
-  Drop,
-  Raw,
-  RenameTable,
-  RenameColumn,
-  DropColumn,
-  AddColumn
-} from './migrations'
 import { Helper } from './extends'
 import { Mysql } from './database'
 import { EntityService } from './app/common'
@@ -63,14 +53,6 @@ export {
   EntitySubcription,
   ReceiveRabbitMQ,
   SendMessageFunc,
-  Migration,
-  CreateTable,
-  AddColumn,
-  DropColumn,
-  RenameColumn,
-  RenameTable,
-  Raw,
-  Drop,
   Helper,
   Mysql,
   Config,

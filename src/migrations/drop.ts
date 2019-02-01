@@ -2,8 +2,8 @@ import { readdirSync } from 'fs'
 import { join } from 'path'
 import { isPlainObject, union } from 'lodash'
 import { db } from './index'
-import { Operation } from '../typings/migrations/operation'
-import { Migration } from '../typings'
+import { Migration } from './types'
+import { Operation } from './enum'
 
 let tasks: Function[] = []
 readdirSync(join('./operation')).map(file => {

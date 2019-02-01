@@ -129,9 +129,9 @@ readdirSync(`${appRoot}/migrations/operation`).map(file => {
     }
     if (isPlainObject(migration) && migration.opt === Operation.renameTable) {
       return funcArray.push(async () => {
-        const exists: boolean = await db.schema.hasTable(<string>(
-          migration.from_table
-        ))
+        const exists: boolean = await db.schema.hasTable(
+          <string>migration.from_table
+        )
         if (exists) {
           return db.schema.renameTable(
             <string>migration.from_table,

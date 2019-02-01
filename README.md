@@ -7,7 +7,7 @@ Trap.ts is base on koa, running in node.js v8 runtime.
 # Project module
 
 - [x] rabbitmq
-- [ ] migrations
+- [x] migrations
 - [x] schedule
 - [x] websocket
 - [x] cache(redis)

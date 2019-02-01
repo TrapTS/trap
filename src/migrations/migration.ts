@@ -1,35 +1,28 @@
-import * as fs from 'fs'
+import { readdirSync } from 'fs'
 import { db } from './index'
 import { isPlainObject, union } from 'lodash'
 import { config } from '../config'
-import * as path from 'path'
-import { AddColumn } from '../typings'
-
-enum Operation {
-  create,
-  addColumn,
-  dropColumn,
-  renameColumn,
-  renameTable,
-  query,
-  drop,
-  raw
-}
+import { join } from 'path'
+import { AddColumn, Migration } from '../typings'
+import { Operation } from '../typings/migrations/operation'
 
 let tasks: Function[] = []
 
 const appRoot = config.appRoot
-fs.readdirSync(`${appRoot}/migrations/operation`).map(file => {
-  let migrations = require(path.join(`${appRoot}/migrations/operation`, file))(
-    db
-  )
+readdirSync(`${appRoot}/migrations/operation`).map(file => {
+  let migrations: Migration[] = require(join(
+    `${appRoot}/migrations/operation`,
+    file
+  ))(db)
   const funcArray: Function[] = []
   migrations.map(migration => {
     if (isPlainObject(migration) && migration.opt === Operation.create) {
       return funcArray.push(async () => {
-        const exists: boolean = await db.schema.hasTable(migration.table)
+        const exists: boolean = await db.schema.hasTable(<string>(
+          migration.table
+        ))
         if (!exists) {
-          return db.schema.createTable(migration.table, t => {
+          return db.schema.createTable(<string>migration.table, t => {
             for (let i in migration.column) {
               let columns = migration.column
               if (i === 'id') {
@@ -65,13 +58,13 @@ fs.readdirSync(`${appRoot}/migrations/operation`).map(file => {
     if (isPlainObject(migration) && migration.opt === Operation.addColumn) {
       return funcArray.push(async () => {
         const exists: boolean = await db.schema.hasColumn(
-          migration.table,
-          migration.field
+          <string>migration.table,
+          <string>migration.field
         )
         if (!exists) {
-          return db.schema.table(migration.table, t => {
+          return db.schema.table(<string>migration.table, t => {
             let column
-            const operate: AddColumn = migration
+            const operate = migration as AddColumn
             if (
               operate.content.type === 'string' ||
               operate.content.type === 'varchar' ||
@@ -105,12 +98,15 @@ fs.readdirSync(`${appRoot}/migrations/operation`).map(file => {
     if (isPlainObject(migration) && migration.opt === Operation.dropColumn) {
       return funcArray.push(async () => {
         const exists: boolean = await db.schema.hasColumn(
-          migration.table,
-          migration.from_column
+          <string>migration.table,
+          <string>migration.from_column
         )
         if (exists) {
-          return db.schema.table(migration.table, t =>
-            t.renameColumn(migration.from_column, migration.to_column)
+          return db.schema.table(<string>migration.table, t =>
+            t.renameColumn(
+              <string>migration.from_column,
+              <string>migration.to_column
+            )
           )
         }
       })
@@ -118,27 +114,35 @@ fs.readdirSync(`${appRoot}/migrations/operation`).map(file => {
     if (isPlainObject(migration) && migration.opt === Operation.renameColumn) {
       return funcArray.push(async () => {
         const exists: boolean = await db.schema.hasColumn(
-          migration.table,
-          migration.from_column
+          <string>migration.table,
+          <string>migration.from_column
         )
         if (exists) {
-          return db.schema.table(migration.table, t =>
-            t.renameColumn(migration.from_column, migration.to_column)
+          return db.schema.table(<string>migration.table, t =>
+            t.renameColumn(
+              <string>migration.from_column,
+              <string>migration.to_column
+            )
           )
         }
       })
     }
     if (isPlainObject(migration) && migration.opt === Operation.renameTable) {
       return funcArray.push(async () => {
-        const exists: boolean = await db.schema.hasTable(migration.from_table)
+        const exists: boolean = await db.schema.hasTable(<string>(
+          migration.from_table
+        ))
         if (exists) {
-          return db.schema.renameTable(migration.from_table, migration.to_table)
+          return db.schema.renameTable(
+            <string>migration.from_table,
+            <string>migration.to_table
+          )
         }
       })
     }
     if (isPlainObject(migration) && migration.opt === Operation.raw) {
       return funcArray.push(async () => {
-        return db.schema.raw(migration.sql)
+        return db.schema.raw(<string>migration.sql)
       })
     }
   })

@@ -45,7 +45,7 @@
     "tslint-plugin-prettier": "2.0.1"
   },
   "dependencies": {
-    "@trapts/router": "^1.0.0",
+    "@trapts/router": "1.0.0",
     "amqplib": "0.5.3",
     "class-transformer": "0.2.0",
     "class-transformer-validator": "0.6.0",

@@ -1,4 +1,4 @@
-import * as Router from 'koa-router'
+import * as Router from '@trapts/router'
 import * as dir from 'dir_filenames'
 import { Middleware } from '../../typings'
 

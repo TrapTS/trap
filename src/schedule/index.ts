@@ -1,15 +1,15 @@
 import { CronJob } from 'cron'
 import * as dir from 'dir_filenames'
-import * as path from 'path'
+import { resolve } from 'path'
 import {
   CronSchedule,
   Schedule,
   ClassSchedule,
-  EntitySubcription,
   EntitySchedule
 } from '../typings'
+import { Subcription } from '../typings/schedule';
 
-const files: string[] = dir(path.resolve(__dirname, 'cronjob'))
+const files: string[] = dir(resolve(__dirname, 'cronjob'))
 
 export const schedule: Schedule = async () => {
   for await (let file of files) {
@@ -42,16 +42,14 @@ export const schedule: Schedule = async () => {
   }
 }
 
-const classfiles: string[] = dir(path.resolve(__dirname, 'classcronjob'))
+const classfiles: string[] = dir(resolve(__dirname, 'classcronjob'))
 
 export const classSchedule: ClassSchedule = async () => {
   for await (let file of classfiles) {
     const classes = require(file)
     for (let i in classes) {
-      // TODO: no check schedule class type
-      const schedule: EntitySubcription = classes[i]
-      console.log('----->', schedule)
-      const info: EntitySchedule = classes[i].schedule()
+      const subscription: Subcription = classes[i]
+      const info: EntitySchedule = subscription.schedule()
       if (info.disable === true) {
         continue
       }

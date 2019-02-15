@@ -15,6 +15,11 @@ export interface EntitySchedule {
   timeZone: string
 }
 
+export interface Subcription {
+  static schedule(): EntitySchedule
+  subscribe(): void
+}
+
 export class EntitySubcription {
   public static schedule(): EntitySchedule
   public subscribe(): void

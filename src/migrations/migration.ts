@@ -10,13 +10,13 @@ let tasks: Function[] = []
 readdirSync(join(__dirname, './operation')).map(file => {
   let migrations = require(join(__dirname, './operation/' + file))
   const funcArray: Function[] = []
-  for(let i in migrations) {
+  for (let i in migrations) {
     const migration: Migration = migrations[i]
     if (migration.opt === Operation.create) {
       console.log('------>', migration)
       funcArray.push(async () => {
-        const exists: boolean = await db.schema.hasTable((
-          <string>migration.table
+        const exists: boolean = await db.schema.hasTable(<string>(
+          migration.table
         ))
         if (!exists) {
           return db.schema.createTable(<string>migration.table, t => {

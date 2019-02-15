@@ -7,7 +7,7 @@ import {
   ClassSchedule,
   EntitySchedule
 } from '../typings'
-import { Subcription } from '../typings/schedule';
+import { Subcription } from '../typings/schedule'
 
 const files: string[] = dir(resolve(__dirname, 'cronjob'))
 

@@ -4,12 +4,17 @@ import { compare } from 'bcrypt'
 import { sign } from 'jsonwebtoken'
 import { User } from '../models/user'
 
+interface Payload {
+  sub: User
+  exp: number
+}
+
 export class UserService extends BaseService {
   private createToken(user: User): string {
     let created_at: Date = new Date()
     created_at.setDate(created_at.getDate() + 30)
     let timeStamp: number = Date.parse(created_at.toString())
-    let payload: Object = {
+    let payload: Payload = {
       sub: user,
       exp: timeStamp
     }
@@ -23,9 +28,8 @@ export class UserService extends BaseService {
       .first()
     if (!account) this.error(404, '该账号不存在！！！')
     if (compare(params.password, params.password)) {
-      const token = this.createToken(account)
       return {
-        token: token
+        token: this.createToken(account)
       }
     } else {
       this.error(401, '登录失败')

@@ -37,7 +37,7 @@ const receiveMessage: Function = async (receive: ReceiveRabbitMQ) => {
       'error',
       (err): void => {
         console.log(err)
-        setTimeout(receiveMessage(), 10000)
+        setTimeout(receiveMessage(receive), 10000)
       }
     )
 
@@ -45,12 +45,12 @@ const receiveMessage: Function = async (receive: ReceiveRabbitMQ) => {
       'close',
       (): void => {
         console.error('RabbitQM connection closed!')
-        setTimeout(receiveMessage(), 10000)
+        setTimeout(receiveMessage(receive), 10000)
       }
     )
   } catch (err) {
     console.log(err)
-    setTimeout(receiveMessage(), 1000)
+    setTimeout(receiveMessage(receive), 1000)
   }
 }
 

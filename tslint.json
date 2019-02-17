@@ -1,11 +1,7 @@
 {
-  "extends": [
-    "prettier"
-  ],
-  "plugins": [
-    "prettier"
-  ],
+  "extends": ["tslint-plugin-prettier", "tslint-config-prettier"],
+  "rulesDirectory": ["tslint-plugin-prettier"],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier": [true, ".prettierrc"]
   }
 }

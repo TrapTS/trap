@@ -23,7 +23,7 @@ export class UserService extends BaseService {
   }
 
   private async recordToken(user: User, token: string, client: RedisCache) {
-    await client.set(user.username as string, token)
+    await client.set(<string>user.username, token)
   }
 
   async login(params, client: RedisCache) {

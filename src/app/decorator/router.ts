@@ -1,6 +1,7 @@
 import * as Router from '@trapts/router'
 import * as dir from 'dir_filenames'
 import { Middleware } from '../../typings'
+import { resolve } from 'path'
 
 const router = new Router({
   prefix: '/v1'
@@ -92,7 +93,7 @@ const routeUpdate = (
 }
 
 export const loadControllers = () => {
-  const files: string[] = dir(`${process.env.PWD}/src/app/controller`)
+  const files: string[] = dir(resolve(__dirname, '../controller'))
   files.map(file => {
     require(file)
   })

@@ -37,6 +37,7 @@ export class InitServer {
   public keys(args: string[]): any
   public use(middleware: Middleware): any
   public start(port: number): void
+  public callback(): any
 }
 
 export class InitWSServer {

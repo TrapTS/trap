@@ -2,7 +2,7 @@ import { Middleware, InitServer, InitWSServer } from '../typings'
 import * as Koa from 'koa'
 import * as http from 'http'
 import { SocketServer } from '../websocket'
-import { helper } from '../extends/context'
+import { helper } from './context'
 
 export class Server implements InitServer {
   private app = new Koa()
@@ -34,6 +34,10 @@ export class Server implements InitServer {
     await this.app.listen(port, () => {
       console.info('Application is listening port:', port)
     })
+  }
+
+  public async callback() {
+    return this.app.callback()
   }
 }
 

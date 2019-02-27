@@ -39,6 +39,17 @@ export class Server implements InitServer {
   public async callback() {
     return this.app.callback()
   }
+
+  public pureCore() {
+    Object.assign(this.app, {
+      address() {
+        return {
+          port: 2000
+        }
+      }
+    })
+    return this.app
+  }
 }
 
 export class WSServer implements InitWSServer {

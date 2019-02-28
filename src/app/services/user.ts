@@ -3,11 +3,15 @@ import knex from '../../database'
 import { compare } from 'bcrypt'
 import { sign } from 'jsonwebtoken'
 import { User } from '../models/user'
-import { RedisCache } from '../../typings/cache'
 
 interface Payload {
   sub: User
   exp: number
+}
+
+interface LoginResult {
+  account: User
+  token: string
 }
 
 export class UserService extends BaseService {
@@ -22,11 +26,7 @@ export class UserService extends BaseService {
     return sign(payload, 'trap')
   }
 
-  private async recordToken(user: User, token: string, client: RedisCache) {
-    await client.set(<string>user.username, token)
-  }
-
-  async login(params, client: RedisCache) {
+  async login(params): Promise<LoginResult | undefined> {
     const account: User = await knex('account')
       .whereNotNull('deleted_at')
       .where('username', params.username)
@@ -34,8 +34,10 @@ export class UserService extends BaseService {
     if (!account) this.error(404, '该账号不存在！！！')
     if (compare(params.password, params.password)) {
       const token = this.createToken(account)
-      await this.recordToken(account, token, client)
-      return { token }
+      return {
+        account: account,
+        token: token
+      }
     } else {
       this.error(401, '登录失败')
     }

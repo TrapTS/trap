@@ -8,6 +8,12 @@ export class UserController extends BaseController {
   async login(ctx: Context) {
     const params = super.deserialize(ctx.model.user.Login, ctx.request.body)
     await super.validate(ctx.model.user.Login, ctx.request.body)
-    ctx.body = await ctx.service.user.login(params, ctx.client)
+    const result = await ctx.service.user.login(params)
+    if (result) {
+      // await ctx.client.set(<string>result.account.username, result.token)
+      ctx.body = result.token
+    } else {
+      ctx.throw(401, '登录失败')
+    }
   }
 }

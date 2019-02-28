@@ -38,7 +38,7 @@
   "homepage": "https://github.com/TrapTS/trap#readme",
   "devDependencies": {
     "@types/amqplib": "0.5.9",
-    "@types/bcrypt": "^3.0.0",
+    "@types/bcrypt": "3.0.0",
     "@types/cron": "1.6.0",
     "@types/ioredis": "4.0.6",
     "@types/jest": "24.0.9",
@@ -64,7 +64,7 @@
   "dependencies": {
     "@trapts/router": "1.0.0",
     "amqplib": "0.5.3",
-    "bcrypt": "^3.0.4",
+    "bcrypt": "3.0.4",
     "class-transformer": "0.2.0",
     "class-transformer-validator": "0.6.0",
     "class-validator": "0.9.1",

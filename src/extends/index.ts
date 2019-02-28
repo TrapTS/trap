@@ -44,7 +44,7 @@ export class Server implements InitServer {
     Object.assign(this.app, {
       address() {
         return {
-          port: 2000
+          port: 1000
         }
       }
     })

@@ -6,23 +6,26 @@ import { loadControllers } from './app/decorator/router'
 import { sendMessage } from './rabbitmq/send'
 import { classSchedule } from './schedule'
 import { Cache } from './cache'
-import { RedisCache } from './cache/redisCache'
 import { Server } from './extends'
 import { redisSession, cors } from './extends/application'
+import * as Redis from 'ioredis'
 
 const server = new Server()
 classSchedule()
+const redis = new Redis({
+  host: config.redis.host,
+  port: config.redis.port,
+  password: config.redis.password || '',
+  db: config.redis.db,
+  lazyConnect: true,
+  enableOfflineQueue: false
+})
+redis.connect().catch(() => {
+  throw new Error('Redis connect Error!!')
+})
 server.bindToContext('sendMessage', sendMessage)
 server.bindToContext('cache', new Cache({ stdTTL: 86400000 }))
-server.bindToContext(
-  'client',
-  new RedisCache({
-    host: config.redis.host,
-    port: config.redis.port,
-    password: config.redis.password || '',
-    db: config.redis.db
-  })
-)
+server.bindToContext('client', redis)
 server.bindToContext('config', config)
 if (config.env === 'development') {
   server.use(logger())

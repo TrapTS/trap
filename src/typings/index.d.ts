@@ -40,10 +40,6 @@ export class InitServer {
   public callback(): any
 }
 
-export class InitWSServer {
-  public start(port: number): Promise<void>
-}
-
 export type Middleware = (ctx: Koa.Context, next?: any) => any | Promise<any>
 
 export {

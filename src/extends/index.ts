@@ -1,7 +1,5 @@
-import { Middleware, InitServer, InitWSServer } from '../typings'
+import { Middleware, InitServer } from '../typings'
 import * as Koa from 'koa'
-import * as http from 'http'
-import { SocketServer } from '../websocket'
 import { helper } from './context'
 
 export class Server implements InitServer {
@@ -49,16 +47,5 @@ export class Server implements InitServer {
       }
     })
     return this.app
-  }
-}
-
-export class WSServer implements InitWSServer {
-  private app = new Koa()
-  public async start(port: number): Promise<void> {
-    const server = http.createServer(this.app.callback())
-    await SocketServer(server)
-    server.listen(port, () => {
-      console.log(`🚀 Server ready at ws://127.0.0.1:${port}`)
-    })
   }
 }

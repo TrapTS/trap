@@ -4,14 +4,12 @@ import * as logger from 'koa-logger'
 import { config } from './config'
 import { loadControllers } from './app/decorator/router'
 import { sendMessage } from './rabbitmq/send'
-import { classSchedule } from './schedule'
 import { Cache } from './cache'
 import { Server } from './extends'
 import { redisSession, cors } from './extends/application'
 import * as Redis from 'ioredis'
 
 const server = new Server()
-classSchedule()
 const redis = new Redis({
   host: config.redis.host,
   port: config.redis.port,

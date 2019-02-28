@@ -135,6 +135,18 @@
     path-to-regexp "^1.1.1"
     urijs "^1.19.0"
 
+"@trapts/schedule@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@trapts/schedule/-/schedule-1.0.2.tgz#fef195ac1ea1782269518f2298c8c7814aa182a5"
+  dependencies:
+    "@types/cron" "^1.6.0"
+    "@types/node" "^11.9.4"
+    cron "^1.6.0"
+    dir_filenames "^1.0.6"
+    prettier "^1.16.4"
+    tslint-config-prettier "^1.18.0"
+    tslint-plugin-prettier "^2.0.1"
+
 "@types/accepts@*":
   version "1.3.5"
   resolved "http://registry.npmjs.org/@types/accepts/-/accepts-1.3.5.tgz#c34bec115cfc746e04fe5a059df4ce7e7b391575"
@@ -181,6 +193,12 @@
 "@types/cron@1.6.0":
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/@types/cron/-/cron-1.6.0.tgz#cafddc20eadc55fb6ae38352c85c106bed533271"
+
+"@types/cron@^1.6.0":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@types/cron/-/cron-1.6.1.tgz#b22a7106a2f512cf0d3f565fc72691e287d2f23a"
+  dependencies:
+    moment ">=2.14.0"
 
 "@types/events@*":
   version "1.2.0"
@@ -279,6 +297,10 @@
 "@types/node@10.12.21":
   version "10.12.21"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.21.tgz#7e8a0c34cf29f4e17a36e9bd0ea72d45ba03908e"
+
+"@types/node@^11.9.4":
+  version "11.9.5"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.9.5.tgz#011eece9d3f839a806b63973e228f85967b79ed3"
 
 "@types/range-parser@*":
   version "1.2.3"
@@ -1041,7 +1063,7 @@ create-error-class@^3.0.0:
   dependencies:
     capture-stack-trace "^1.0.0"
 
-cron@1.6.0:
+cron@1.6.0, cron@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/cron/-/cron-1.6.0.tgz#15f92c1b5a930c5cdfcd53fe940064fa8ca2e72d"
   dependencies:
@@ -1218,7 +1240,7 @@ diff@3.5.0, diff@^3.1.0, diff@^3.2.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
 
-dir_filenames@1.0.6:
+dir_filenames@1.0.6, dir_filenames@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/dir_filenames/-/dir_filenames-1.0.6.tgz#e5f71d625fc7f8f38e444333d6b0cbf8b3406dba"
   dependencies:
@@ -3208,6 +3230,10 @@ moment-timezone@^0.5.x:
   version "2.23.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.23.0.tgz#759ea491ac97d54bac5ad776996e2a58cc1bc225"
 
+moment@>=2.14.0:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+
 mri@^1.1.0:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/mri/-/mri-1.1.4.tgz#7cb1dd1b9b40905f1fac053abe25b6720f44744a"
@@ -3731,6 +3757,10 @@ prepend-http@^1.0.1:
 prettier@1.16.3:
   version "1.16.3"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.16.3.tgz#8c62168453badef702f34b45b6ee899574a6a65d"
+
+prettier@^1.16.4:
+  version "1.16.4"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.16.4.tgz#73e37e73e018ad2db9c76742e2647e21790c9717"
 
 pretty-format@^24.0.0:
   version "24.0.0"
@@ -4638,7 +4668,11 @@ tslint-config-prettier@1.17.0:
   version "1.17.0"
   resolved "https://registry.yarnpkg.com/tslint-config-prettier/-/tslint-config-prettier-1.17.0.tgz#946ed6117f98f3659a65848279156d87628c33dc"
 
-tslint-plugin-prettier@2.0.1:
+tslint-config-prettier@^1.18.0:
+  version "1.18.0"
+  resolved "https://registry.yarnpkg.com/tslint-config-prettier/-/tslint-config-prettier-1.18.0.tgz#75f140bde947d35d8f0d238e0ebf809d64592c37"
+
+tslint-plugin-prettier@2.0.1, tslint-plugin-prettier@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/tslint-plugin-prettier/-/tslint-plugin-prettier-2.0.1.tgz#95b6a3b766622ffc44375825d7760225c50c3680"
   dependencies:

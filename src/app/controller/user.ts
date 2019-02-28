@@ -10,7 +10,10 @@ export class UserController extends BaseController {
     await super.validate(ctx.model.user.Login, ctx.request.body)
     const result = await ctx.service.user.login(params)
     if (result) {
-      await ctx.client.set(<string>result.account.username, result.token)
+      await ctx.client.set(
+        <string>result.account.username,
+        JSON.stringify(result)
+      )
       ctx.body = result
     } else {
       ctx.throw(401, '登录失败')

@@ -153,9 +153,9 @@
   dependencies:
     "@types/node" "*"
 
-"@types/amqplib@0.5.9":
-  version "0.5.9"
-  resolved "https://registry.yarnpkg.com/@types/amqplib/-/amqplib-0.5.9.tgz#94fa80fad2fdbe78f458ccb9c5fb0abfe62f817c"
+"@types/amqplib@0.5.11":
+  version "0.5.11"
+  resolved "https://registry.yarnpkg.com/@types/amqplib/-/amqplib-0.5.11.tgz#32b0fe3d8e3aa4c749b300d232da15900908e816"
   dependencies:
     "@types/bluebird" "*"
     "@types/node" "*"

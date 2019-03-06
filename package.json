@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/TrapTS/trap#readme",
   "devDependencies": {
-    "@types/amqplib": "0.5.9",
+    "@types/amqplib": "0.5.11",
     "@types/bcrypt": "3.0.0",
     "@types/cron": "1.6.0",
     "@types/ioredis": "4.0.6",

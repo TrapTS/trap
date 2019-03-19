@@ -65,7 +65,7 @@
     "@trapts/router": "1.0.0",
     "@trapts/schedule": "^1.0.2",
     "amqplib": "0.5.3",
-    "bcrypt": "3.0.4",
+    "bcrypt": "3.0.5",
     "class-transformer": "0.2.0",
     "class-transformer-validator": "0.6.0",
     "class-validator": "0.9.1",

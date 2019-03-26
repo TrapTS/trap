@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  mysql:
+    build: ./mysql
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    ports:
+      - 3319:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: trap12
+    networks:
+      - trap
+
+  redis:
+    build:
+      context: ./redis
+    volumes:
+      - ./redis:/data
+    ports:
+      - 6399:6379
+    networks:
+      - trap
+
+networks:
+  trap:
+    driver: bridge

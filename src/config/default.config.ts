@@ -2,14 +2,15 @@ import { Config } from '../typings'
 
 export const config: Config = {
   mysql: {
-    host: '106.15.230.136',
-    user: 'lvyang',
-    password: 'zhazhayang',
-    database: 'test'
+    host: '127.0.0.1',
+    user: 'root',
+    password: 'trap12',
+    database: 'trap-dev',
+    port: 3319
   },
   redis: {
-    host: '106.15.230.136',
-    port: 6379,
+    host: '127.0.0.1',
+    port: 6399,
     password: 'alfieri',
     db: 2
   },

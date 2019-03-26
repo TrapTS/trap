@@ -12,6 +12,7 @@ interface Mysql {
   user: string
   password: string
   database: string
+  port?: number
 }
 
 interface Redis {

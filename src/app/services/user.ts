@@ -32,7 +32,7 @@ export class UserService extends BaseService {
       .where('username', params.username)
       .first()
     if (!account) this.error(404, '该账号不存在！！！')
-    if (compare(params.password, params.password)) {
+    if (compare(params.password, account.password)) {
       const token = this.createToken(account)
       return {
         account: account,

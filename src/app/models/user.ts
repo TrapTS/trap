@@ -1,10 +1,10 @@
 import { Length } from 'class-validator'
 
 export class User {
-  id?: number
-  username?: string
-  password?: string
-  created_at?: string
+  id: number
+  username: string
+  password: string
+  created_at: string
   updated_at?: string
   deleted_at?: string
 }

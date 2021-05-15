@@ -47,7 +47,7 @@
     "@types/koa": "2.0.48",
     "@types/koa-generic-session": "1.0.2",
     "@types/lodash": "4.14.123",
-    "@types/node": "10.14.4",
+    "@types/node": "10.17.60",
     "husky": "1.3.1",
     "jest": "24.5.0",
     "nodemon": "1.18.10",
